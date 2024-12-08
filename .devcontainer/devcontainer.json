@@ -1,0 +1,32 @@
+{
+    "name": "Panda Gym Jenga",
+    "dockerFile": "Dockerfile",
+    // This will launch the container as a non-root user
+    //"remoteUser" : "ros",
+    "runArgs": [
+        "-e", "DISPLAY=${localEnv:DISPLAY}",
+        "-e", "QT_X11_NO_MITSHM=1",
+        "-v", "/tmp/.X11-unix:/tmp/.X11-unix",
+        "--gpus=1"
+    ],
+    // These are the extensions I like to use with ROS2
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python"
+            ]
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/desktop-lite": {}
+    },
+    "forwardPorts": [6080, 5901],
+    "portsAttributes": {
+        "6080": {
+            "label": "Desktop (Web)"
+        },
+        "5901":{
+            "label": "Desktop (VNC)"
+        }
+    }
+}
