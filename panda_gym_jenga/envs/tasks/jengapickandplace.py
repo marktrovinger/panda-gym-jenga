@@ -7,6 +7,8 @@ from panda_gym.utils import distance
 from panda_gym.envs.tasks.stack import Stack
 
 class JengaPickAndPlace(Task):
+    """
+    """
     def __init__(
         self,
         sim,
@@ -14,11 +16,12 @@ class JengaPickAndPlace(Task):
         distance_threshold=0.1,
         goal_xy_range=0.3,
         obj_xy_range=0.3,
+        object_size="normal"
     ) -> None:
         super().__init__(sim)
         self.reward_type = reward_type
         self.distance_threshold = distance_threshold
-        self.object_size = 0.04
+        self.object_size = object_size
         #self.np_random = Task.
         self.goal_range_low = np.array([-goal_xy_range / 2, -goal_xy_range / 2, 0])
         self.goal_range_high = np.array([goal_xy_range / 2, goal_xy_range / 2, 0])
@@ -30,46 +33,35 @@ class JengaPickAndPlace(Task):
     def _create_scene(self) -> None:
         self.sim.create_plane(z_offset=-0.4)
         self.sim.create_table(length=1.17, width=1.424, height=0.4, x_offset=-0.3)
+        if self.object_size == "large":
+            half_extents = np.array([0.0381, 0.12065, 0.0254])
+        else:
+            pass
         self.sim.create_box(
-            body_name="object1",
-            half_extents=np.ones(3) * self.object_size / 2,
+            body_name="block1",
+            half_extents=half_extents / 2,
             mass=2.0,
-            position=np.array([0.0, 0.0, self.object_size / 2]),
+            position=np.array([0.0, 0.0, 1.0]),
             rgba_color=np.array([0.1, 0.1, 0.9, 1.0]),
         )
         self.sim.create_box(
             body_name="target1",
-            half_extents=np.ones(3) * self.object_size / 2,
+            half_extents=half_extents / 2,
             mass=0.0,
             ghost=True,
             position=np.array([0.0, 0.0, 0.05]),
             rgba_color=np.array([0.1, 0.1, 0.9, 0.3]),
         )
         self.sim.create_box(
-            body_name="object2",
-            half_extents=np.ones(3) * self.object_size / 2,
+            body_name="block2",
+            half_extents=half_extents / 2,
             mass=1.0,
-            position=np.array([0.5, 0.0, self.object_size / 2]),
+            position=np.array([0.5, 0.0, 1.0]),
             rgba_color=np.array([0.1, 0.9, 0.1, 1.0]),
         )
         self.sim.create_box(
             body_name="target2",
-            half_extents=np.ones(3) * self.object_size / 2,
-            mass=0.0,
-            ghost=True,
-            position=np.array([0.5, 0.0, 0.05]),
-            rgba_color=np.array([0.1, 0.9, 0.1, 0.3]),
-        )
-        self.sim.create_box(
-            body_name="object3",
-            half_extents=np.ones(3) * self.object_size / 2,
-            mass=1.0,
-            position=np.array([0.5, 0.0, self.object_size / 2]),
-            rgba_color=np.array([0.1, 0.9, 0.1, 1.0]),
-        )
-        self.sim.create_box(
-            body_name="target3",
-            half_extents=np.ones(3) * self.object_size / 2,
+            half_extents=half_extents / 2,
             mass=0.0,
             ghost=True,
             position=np.array([0.5, 0.0, 0.05]),
@@ -86,10 +78,6 @@ class JengaPickAndPlace(Task):
         object2_rotation = np.array(self.sim.get_base_rotation("object2"))
         object2_velocity = np.array(self.sim.get_base_velocity("object2"))
         object2_angular_velocity = np.array(self.sim.get_base_angular_velocity("object2"))
-        object3_position = np.array(self.sim.get_base_position("object3"))
-        object3_rotation = np.array(self.sim.get_base_rotation("object3"))
-        object3_velocity = np.array(self.sim.get_base_velocity("object3"))
-        object3_angular_velocity = np.array(self.sim.get_base_angular_velocity("object3"))
         observation = np.concatenate(
             [
                 object1_position,
@@ -100,10 +88,6 @@ class JengaPickAndPlace(Task):
                 object2_rotation,
                 object2_velocity,
                 object2_angular_velocity,
-                object3_position,
-                object3_rotation,
-                object3_velocity,
-                object3_angular_velocity,
             ]
         )
         return observation
@@ -111,43 +95,38 @@ class JengaPickAndPlace(Task):
     def get_achieved_goal(self) -> np.ndarray:
         object1_position = self.sim.get_base_position("object1")
         object2_position = self.sim.get_base_position("object2")
-        object3_position = self.sim.get_base_position("object3")
-        achieved_goal = np.concatenate((object1_position, object2_position, object3_position))
+        #object3_position = self.sim.get_base_position("object3")
+        achieved_goal = np.concatenate((object1_position, object2_position))
         return achieved_goal
 
     def reset(self) -> None:
         self.goal = self._sample_goal()
-        object1_position, object2_position, object3_position = self._sample_objects()
+        object1_position, object2_position = self._sample_objects()
         self.sim.set_base_pose("target1", self.goal[:3], np.array([0.0, 0.0, 0.0, 1.0]))
-        self.sim.set_base_pose("target2", self.goal[3:6], np.array([0.0, 0.0, 0.0, 1.0]))
-        self.sim.set_base_pose("target3", self.goal[6:], np.array([0.0, 0.0, 0.0, 1.0]))
+        self.sim.set_base_pose("target2", self.goal[3:], np.array([0.0, 0.0, 0.0, 1.0]))
         self.sim.set_base_pose("object1", object1_position, np.array([0.0, 0.0, 0.0, 1.0]))
         self.sim.set_base_pose("object2", object2_position, np.array([0.0, 0.0, 0.0, 1.0]))
-        self.sim.set_base_pose("object3", object3_position, np.array([0.0, 0.0, 0.0, 1.0]))
+        
 
     def _sample_goal(self) -> np.ndarray:
         goal1 = np.array([0.0, 0.0, self.object_size / 2])  # z offset for the cube center
         goal2 = np.array([0.0, 0.0, 3 * self.object_size / 2])  # z offset for the cube center
-        goal3 = np.array([0.0, 0.0, 6 * self.object_size / 2])  # z offset for the cube center
         noise = self.np_random.uniform(self.goal_range_low, self.goal_range_high)
         goal1 += noise
         goal2 += noise
-        goal3 += noise
         return np.concatenate((goal1, goal2, goal3))
 
     def _sample_objects(self) -> Tuple[np.ndarray, np.ndarray]:
         # while True:  # make sure that cubes are distant enough
         object1_position = np.array([0.0, 0.0, self.object_size / 2])
         object2_position = np.array([0.0, 0.0, 3 * self.object_size / 2])
-        object3_position = np.array([0.0, 0.0, 6 * self.object_size / 2])
+        
         noise1 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
         noise2 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
-        noise3 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
         object1_position += noise1
         object2_position += noise2
-        object3_position += noise3
         # if distance(object1_position, object2_position) > 0.1:
-        return object1_position, object2_position, object3_position
+        return object1_position, object2_position
 
     def is_success(self, achieved_goal: np.ndarray, desired_goal: np.ndarray, info: Dict[str, Any] = {}) -> np.ndarray:
         # must be vectorized !!
