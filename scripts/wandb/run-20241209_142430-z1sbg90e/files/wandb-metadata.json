@@ -1,0 +1,43 @@
+{
+  "os": "Linux-6.8.0-49-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.16",
+  "startedAt": "2024-12-09T19:24:30.701299Z",
+  "program": "/home/marktrovinger/Projects/panda-gym-jenga/scripts/test_ddpg_stack3.py",
+  "codePath": "scripts/test_ddpg_stack3.py",
+  "git": {
+    "remote": "https://github.com/marktrovinger/panda-gym-jenga.git",
+    "commit": "736e72cff7c27a8e148cc039539f20960bc00007"
+  },
+  "email": "mark.trovinger@gmail.com",
+  "root": "/home/marktrovinger/Projects/panda-gym-jenga/scripts",
+  "host": "brawler-yukon",
+  "username": "marktrovinger",
+  "executable": "/home/marktrovinger/miniforge3/envs/panda-jenga/bin/python",
+  "codePathLocal": "test_ddpg_stack3.py",
+  "cpu_count": 40,
+  "cpu_count_logical": 80,
+  "gpu": "NVIDIA RTX A5000",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "982820896768",
+      "used": "271398518784"
+    }
+  },
+  "memory": {
+    "total": "201365278720"
+  },
+  "cpu": {
+    "count": 40,
+    "countLogical": 80
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA RTX A5000",
+      "memoryTotal": "25757220864",
+      "cudaCores": 8192,
+      "architecture": "Ampere"
+    }
+  ],
+  "cudaVersion": "12.4"
+}
