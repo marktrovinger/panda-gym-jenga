@@ -5,11 +5,11 @@ from panda_gym.pybullet import PyBullet
 from panda_gym.envs.core import RobotTaskEnv
 from panda_gym.envs.robots.panda import Panda
 from panda_gym_jenga.envs.tasks.jengapickandplace import JengaPickAndPlace
-from panda_gym_jenga.envs.tasks.stack3 import Stack3
+from panda_gym_jenga.envs.tasks.stack3 import JengaStack3
 
 
 
-class JengaPickAndPlace(RobotTaskEnv):
+class JengaPickAndPlaceEnv(RobotTaskEnv):
     """Pick and place task for Jenga blocks with the Panda robot.
     Args:
         render_mode (str, optional): Render mode. Defaults to "rgb_array".
@@ -58,7 +58,7 @@ class JengaPickAndPlace(RobotTaskEnv):
             render_roll
         )
 
-class JengaStack3(RobotTaskEnv):
+class JengaStack3Env(RobotTaskEnv):
     """Stack task with 3 blocks for the Panda robot.
     Args:
         render_mode (str, optional): Render mode. Defaults to "rgb_array".
@@ -92,7 +92,7 @@ class JengaStack3(RobotTaskEnv):
         ) -> None:
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
         robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
-        task = Stack3(sim, reward_type=reward_type)
+        task = JengaStack3(sim, reward_type=reward_type)
         super().__init__(
             robot, 
             task, 
