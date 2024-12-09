@@ -1,3 +1,4 @@
 from panda_gym_jenga.envs.tasks import (
-    jengapickandplace
+    JengaPickAndPlace,
+    Stack3,
 )
