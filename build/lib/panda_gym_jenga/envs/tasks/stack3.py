@@ -72,7 +72,7 @@ class JengaStack3(Task):
             half_extents=np.ones(3) * self.object_size / 2,
             mass=0.0,
             ghost=True,
-            position=np.array([0.5, 0.0, 0.05]),
+            position=np.array([1.0, 0.0, 0.05]),
             rgba_color=np.array([0.1, 0.9, 0.1, 0.3]),
         )
 
