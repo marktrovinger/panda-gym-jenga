@@ -6,7 +6,7 @@ from panda_gym.envs.core import Task
 from panda_gym.utils import distance
 from panda_gym.envs.tasks.stack import Stack
 
-class SimpleJengaPickAndPlace(Task):
+class JengaSimplePickAndPlace(Task):
     """A simplified version of the pick and place task for Jenga blocks.
     """
     def __init__(
@@ -71,8 +71,7 @@ class SimpleJengaPickAndPlace(Task):
     def get_achieved_goal(self) -> np.ndarray:
         object1_position = self.sim.get_base_position("block1")
         #object3_position = self.sim.get_base_position("object3")
-        achieved_goal = np.concatenate((object1_position))
-        return achieved_goal
+        return object1_position
 
     def reset(self) -> None:
         self.goal = self._sample_goal()
@@ -85,7 +84,7 @@ class SimpleJengaPickAndPlace(Task):
         goal1 = np.array([0.0, 0.0, self.extents[2] / 2])  # z offset for the cube center
         noise = self.np_random.uniform(self.goal_range_low, self.goal_range_high)
         goal1 += noise
-        return np.concatenate((goal1))
+        return goal1
 
     def _sample_objects(self) -> Tuple[np.ndarray, np.ndarray]:
         # while True:  # make sure that cubes are distant enough
