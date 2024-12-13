@@ -45,7 +45,7 @@ def main():
             goal_selection_strategy=goal_selection_strategy,
         ),
         verbose=1,
-        batch_size=512,
+        batch_size=1024,
         tensorboard_log=f"runs/{run.id}",
         policy_kwargs={"net_arch": [400,300]}
     )
