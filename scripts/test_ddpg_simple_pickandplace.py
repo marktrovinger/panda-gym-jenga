@@ -9,7 +9,7 @@ import wandb
 from wandb.integration.sb3 import WandbCallback
 config = {
         "policy_type": "MultiInputPolicy",
-        "total_timesteps": 1e5,
+        "total_timesteps": 2e5,
         "env_name": "JengaSimplePickAndPlace-v3",
     }
 def make_env():
@@ -44,7 +44,8 @@ def main():
             n_sampled_goal=4,
             goal_selection_strategy=goal_selection_strategy,
         ),
-        verbose=1, 
+        verbose=1,
+        batch_size=512,
         tensorboard_log=f"runs/{run.id}",
         policy_kwargs={"net_arch": [400,300]}
     )
