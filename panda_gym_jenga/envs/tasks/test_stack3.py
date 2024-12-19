@@ -1,9 +1,9 @@
+import panda_gym
 from panda_gym.pybullet import PyBullet
-from panda_gym.envs.tasks import stack
-from stack3 import Stack3
+from panda_gym_jenga.envs.jenga_tasks import JengaStack3
 
 sim = PyBullet(render_mode="human")
-task = Stack3(sim)
+task = JengaStack3(sim)
 #task = stack(sim)
 
 task.reset()
