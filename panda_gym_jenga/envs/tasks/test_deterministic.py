@@ -12,7 +12,8 @@ def main():
     obs, done = env.reset()
     action_space = env.action_space
 
-    env.step(0)
+    obs, reward, terminated, truncated, info = env.step(0)
+    print(f"Reward = {reward}")
     #env.step(2)
     env.step(1)
     env.step(2)

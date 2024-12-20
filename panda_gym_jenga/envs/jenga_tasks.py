@@ -234,8 +234,8 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
             observation = self._get_obs()
             terminated = bool(self.task.is_success(observation["achieved_goal"], self.task.get_goal()))
             if terminated:
-                reward = reward * i
-                continue
+                reward += reward * i
+                break
         truncated = False
         info = {"is_success": terminated}
         #reward = float(self.task.compute_reward(observation["achieved_goal"], self.task.get_goal(), info))
