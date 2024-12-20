@@ -14,9 +14,10 @@ def main():
 
     obs, reward, terminated, truncated, info = env.step(0)
     print(f"Reward = {reward}")
-    env.step(2)
-    #env.step(1)
     #env.step(2)
+    env.step(2)
+    env.step(1)
+    env.step(3)
 
     env.close()
 

@@ -193,7 +193,7 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
         robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
         task = JengaSimplePickAndPlace(sim, reward_type=reward_type, object_size=object_size)   
         self.is_action_completed = False  
-        self.deterministic_action_space = Discrete(3,)                      
+        self.deterministic_action_space = Discrete(4,)                      
         super().__init__(                                                                                           
             robot,                                                                                                  
             task,                                                                                                   
@@ -218,8 +218,15 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
             goal_position = observation["desired_goal"][0:3]
             return 1.0 * (goal_position - current_position)
         if action == 2:
+            self.robot.block_gripper = True
             gripper_action = np.append(current_position, 0.0)
+            #print("Closing fingers")
             return gripper_action
+        else:
+            self.robot.block_gripper = False
+            gripper_action = np.append(current_position, 1.0)
+            return gripper_action
+
         
 
     def step(self, action: np.ndarray):
@@ -230,7 +237,8 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
             action = self._robot_action(goal_action)
             #dont forget to add the gripper
             if goal_action < 2:
-                action = np.append(action, 1.0)
+                gripper = 0.0 if self.robot.get_fingers_width() else 1.0
+                action = np.append(action, gripper)
             self.robot.set_action(action)
             self.sim.step()
             observation = self._get_obs()
