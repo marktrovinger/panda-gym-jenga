@@ -24,6 +24,8 @@ class JengaSimplePickAndPlace(Task):
         self.object_size = object_size
         if self.object_size == "large":
             self.extents = np.array([0.0381, 0.12065, 0.0254])
+            # "vertical" to align with gripper better
+            self.extents = np.array([0.12065, 0.0381, 0.0254])
         else:
             pass
         #self.np_random = Task.
