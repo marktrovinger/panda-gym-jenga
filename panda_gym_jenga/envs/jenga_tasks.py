@@ -206,7 +206,7 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
             render_roll
         )
 
-    def _deterministic_action(self, action):
+    def _robot_action(self, action):
         # move to object
         observation = self._get_obs()
         current_position = observation["observation"][0:3]
@@ -227,7 +227,7 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
         reward = -1
         goal_action = action
         for i in range(1000):
-            action = self._deterministic_action(goal_action)
+            action = self._robot_action(goal_action)
             #dont forget to add the gripper
             if goal_action < 2:
                 action = np.append(action, 1.0)
