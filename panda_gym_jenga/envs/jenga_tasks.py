@@ -218,7 +218,8 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
             goal_position = observation["desired_goal"][0:3]
             return 1.0 * (goal_position - current_position)
         if action == 2:
-            return current_position
+            gripper_action = np.append(current_position, 0.0)
+            return gripper_action
         
 
     def step(self, action: np.ndarray):
@@ -228,7 +229,8 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
         for i in range(1000):
             action = self._deterministic_action(goal_action)
             #dont forget to add the gripper
-            action = np.append(action, 1.0)
+            if goal_action < 2:
+                action = np.append(action, 1.0)
             self.robot.set_action(action)
             self.sim.step()
             observation = self._get_obs()
