@@ -1,0 +1,30 @@
+_wandb:
+    value:
+        cli_version: 0.19.0
+        code_path: code/scripts/test_ppo_pgym_pandp.py
+        m: []
+        python_version: 3.10.16
+        t:
+            "1":
+                - 1
+                - 55
+            "2":
+                - 1
+                - 55
+            "3":
+                - 16
+                - 23
+                - 35
+                - 55
+            "4": 3.10.16
+            "5": 0.19.0
+            "8":
+                - 5
+            "12": 0.19.0
+            "13": linux-x86_64
+env_name:
+    value: PandaStack-v3
+policy_type:
+    value: MultiInputPolicy
+total_timesteps:
+    value: 100000

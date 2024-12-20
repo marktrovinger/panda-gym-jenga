@@ -1,0 +1,227 @@
+_current_progress_remaining:
+    value: 1
+_custom_logger:
+    value: "False"
+_episode_num:
+    value: 0
+_last_episode_starts:
+    value: '[ True  True  True  True]'
+_last_obs:
+    value: |-
+        {'achieved_goal': array([[ 0.00487931, -0.09815747,  0.02      ,  0.07222439,  0.1117791 ,
+                 0.06      ],
+               [ 0.05075669,  0.12356997,  0.02      ,  0.07870515, -0.09210733,
+                 0.06      ],
+               [-0.00541792,  0.06204117,  0.02      ,  0.01098753, -0.02379445,
+                 0.06      ],
+               [-0.04783141,  0.11915119,  0.02      , -0.12593272, -0.10926735,
+                 0.06      ]], dtype=float32), 'desired_goal': array([[-0.01170383, -0.09225585,  0.02      , -0.01170383, -0.09225585,
+                 0.06      ],
+               [ 0.04519001, -0.11717638,  0.02      ,  0.04519001, -0.11717638,
+                 0.06      ],
+               [-0.03714469, -0.06992588,  0.02      , -0.03714469, -0.06992588,
+                 0.06      ],
+               [-0.00308078, -0.1143171 ,  0.02      , -0.00308078, -0.1143171 ,
+                 0.06      ]], dtype=float32), 'observation': array([[ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  4.87931445e-03, -9.81574655e-02,
+                 1.99999996e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  7.22243935e-02,  1.11779101e-01,
+                 5.99999987e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  5.07566892e-02,  1.23569965e-01,
+                 1.99999996e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  7.87051469e-02, -9.21073332e-02,
+                 5.99999987e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00, -5.41792205e-03,  6.20411746e-02,
+                 1.99999996e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  1.09875305e-02, -2.37944480e-02,
+                 5.99999987e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00, -4.78314087e-02,  1.19151190e-01,
+                 1.99999996e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00, -1.25932723e-01, -1.09267354e-01,
+                 5.99999987e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00]], dtype=float32)}
+_last_original_obs:
+    value: None
+_logger:
+    value: <stable_baselines3.common.logger.Logger object at 0x711fc83edff0>
+_n_updates:
+    value: 0
+_num_timesteps_at_start:
+    value: 0
+_stats_window_size:
+    value: 100
+_total_timesteps:
+    value: 100000
+_vec_normalize_env:
+    value: None
+_wandb:
+    value:
+        cli_version: 0.19.0
+        code_path: code/scripts/test_ppo_pgym_pandp.py
+        m: []
+        python_version: 3.10.16
+        t:
+            "1":
+                - 1
+                - 55
+            "2":
+                - 1
+                - 55
+            "3":
+                - 1
+                - 2
+                - 3
+                - 16
+                - 22
+                - 23
+                - 35
+                - 55
+            "4": 3.10.16
+            "5": 0.19.0
+            "8":
+                - 5
+            "12": 0.19.0
+            "13": linux-x86_64
+action_noise:
+    value: None
+action_space:
+    value: Box(-1.0, 1.0, (4,), float32)
+algo:
+    value: PPO
+batch_size:
+    value: 64
+clip_range:
+    value: <function get_schedule_fn.<locals>.<lambda> at 0x711fc81e1ab0>
+clip_range_vf:
+    value: None
+device:
+    value: cpu
+ent_coef:
+    value: 0
+env:
+    value: <stable_baselines3.common.vec_env.vec_video_recorder.VecVideoRecorder object at 0x711ff4942ef0>
+env_name:
+    value: PandaStack-v3
+ep_info_buffer:
+    value: deque([], maxlen=100)
+ep_success_buffer:
+    value: deque([], maxlen=100)
+gae_lambda:
+    value: 0.95
+gamma:
+    value: 0.99
+learning_rate:
+    value: 0.0003
+lr_schedule:
+    value: <function get_schedule_fn.<locals>.<lambda> at 0x711fe5f02f80>
+max_grad_norm:
+    value: 0.5
+n_envs:
+    value: 4
+n_epochs:
+    value: 10
+n_steps:
+    value: 2048
+normalize_advantage:
+    value: "True"
+num_timesteps:
+    value: 0
+observation_space:
+    value: 'Dict(''achieved_goal'': Box(-10.0, 10.0, (6,), float32), ''desired_goal'': Box(-10.0, 10.0, (6,), float32), ''observation'': Box(-10.0, 10.0, (31,), float32))'
+policy:
+    value: |-
+        MultiInputActorCriticPolicy(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (pi_features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (vf_features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (mlp_extractor): MlpExtractor(
+            (policy_net): Sequential(
+              (0): Linear(in_features=43, out_features=64, bias=True)
+              (1): Tanh()
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Tanh()
+            )
+            (value_net): Sequential(
+              (0): Linear(in_features=43, out_features=64, bias=True)
+              (1): Tanh()
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Tanh()
+            )
+          )
+          (action_net): Linear(in_features=64, out_features=4, bias=True)
+          (value_net): Linear(in_features=64, out_features=1, bias=True)
+        )
+policy_class:
+    value: <class 'stable_baselines3.common.policies.MultiInputActorCriticPolicy'>
+policy_kwargs:
+    value: '{}'
+policy_type:
+    value: MultiInputPolicy
+rollout_buffer:
+    value: <stable_baselines3.common.buffers.DictRolloutBuffer object at 0x711ff48fc880>
+rollout_buffer_class:
+    value: <class 'stable_baselines3.common.buffers.DictRolloutBuffer'>
+rollout_buffer_kwargs:
+    value: '{}'
+sde_sample_freq:
+    value: -1
+seed:
+    value: None
+start_time:
+    value: 1734371494854122342
+target_kl:
+    value: None
+tensorboard_log:
+    value: runs/e1dej7hg
+total_timesteps:
+    value: 100000
+use_sde:
+    value: "False"
+verbose:
+    value: 1
+vf_coef:
+    value: 0.5

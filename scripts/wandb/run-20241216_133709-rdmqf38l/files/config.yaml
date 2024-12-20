@@ -1,0 +1,424 @@
+_current_progress_remaining:
+    value: 1
+_custom_logger:
+    value: "False"
+_episode_num:
+    value: 0
+_episode_storage:
+    value: None
+_last_episode_starts:
+    value: |-
+        [ True  True  True  True  True  True  True  True  True  True  True  True
+          True  True  True  True]
+_last_obs:
+    value: |-
+        OrderedDict([('achieved_goal', array([[-0.01633457,  0.13553406,  0.0127    ],
+               [-0.00174573,  0.10542428,  0.0127    ],
+               [-0.07477991, -0.10581315,  0.0127    ],
+               [ 0.11308883, -0.08002613,  0.0127    ],
+               [ 0.03552793,  0.11629903,  0.0127    ],
+               [ 0.0667377 , -0.12690933,  0.0127    ],
+               [ 0.10221272, -0.11818878,  0.0127    ],
+               [ 0.0446323 ,  0.12039211,  0.0127    ],
+               [ 0.01894088,  0.14269389,  0.0127    ],
+               [ 0.12165323,  0.13897856,  0.0127    ],
+               [-0.03945197, -0.06807614,  0.0127    ],
+               [ 0.13507447,  0.04488795,  0.0127    ],
+               [-0.13028151, -0.00552957,  0.0127    ],
+               [-0.12973268, -0.04918593,  0.0127    ],
+               [ 0.12030626, -0.0665622 ,  0.0127    ],
+               [ 0.02013773,  0.07220677,  0.0127    ]], dtype=float32)), ('desired_goal', array([[-0.09262591, -0.07222489,  0.0127    ],
+               [-0.0671618 , -0.11239043,  0.0127    ],
+               [ 0.00962037, -0.14776093,  0.0127    ],
+               [-0.10049146,  0.06700051,  0.0127    ],
+               [ 0.12234158, -0.05355502,  0.0127    ],
+               [-0.14048961,  0.09444119,  0.0127    ],
+               [ 0.13190344,  0.07822698,  0.0127    ],
+               [ 0.07000142, -0.04203274,  0.0127    ],
+               [-0.13817799, -0.06243799,  0.0127    ],
+               [-0.01582487, -0.03116013,  0.0127    ],
+               [-0.08351152, -0.05716122,  0.0127    ],
+               [-0.0913442 ,  0.0983872 ,  0.0127    ],
+               [ 0.1297663 , -0.13440466,  0.0127    ],
+               [-0.1334513 ,  0.14662835,  0.0127    ],
+               [-0.13532329,  0.02845604,  0.0127    ],
+               [ 0.09885211, -0.11281274,  0.0127    ]], dtype=float32)), ('observation', array([[ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00, -1.63345654e-02,  1.35534063e-01,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00, -1.74572540e-03,  1.05424277e-01,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00, -7.47799128e-02, -1.05813146e-01,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  1.13088831e-01, -8.00261274e-02,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  3.55279259e-02,  1.16299033e-01,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  6.67376965e-02, -1.26909330e-01,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  1.02212720e-01, -1.18188776e-01,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  4.46322970e-02,  1.20392106e-01,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  1.89408790e-02,  1.42693892e-01,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  1.21653229e-01,  1.38978556e-01,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00, -3.94519679e-02, -6.80761412e-02,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  1.35074466e-01,  4.48879525e-02,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00, -1.30281508e-01, -5.52956760e-03,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00, -1.29732683e-01, -4.91859280e-02,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  1.20306261e-01, -6.65621981e-02,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00],
+               [ 3.84396687e-02, -2.19447225e-12,  1.97400138e-01,
+                 0.00000000e+00, -0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  2.01377254e-02,  7.22067729e-02,
+                 1.26999998e-02,  0.00000000e+00, -0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+                 0.00000000e+00]], dtype=float32))])
+_last_original_obs:
+    value: None
+_logger:
+    value: <stable_baselines3.common.logger.Logger object at 0x7d4c459f5de0>
+_n_updates:
+    value: 0
+_num_timesteps_at_start:
+    value: 0
+_stats_window_size:
+    value: 100
+_total_timesteps:
+    value: 1.6e+06
+_vec_normalize_env:
+    value: None
+_wandb:
+    value:
+        cli_version: 0.19.0
+        code_path: code/scripts/test_ddpg_simple_pickandplace.py
+        m: []
+        python_version: 3.10.16
+        t:
+            "1":
+                - 1
+                - 55
+            "2":
+                - 1
+                - 55
+            "3":
+                - 1
+                - 16
+                - 22
+                - 23
+                - 35
+                - 55
+            "4": 3.10.16
+            "5": 0.19.0
+            "8":
+                - 5
+            "12": 0.19.0
+            "13": linux-x86_64
+action_noise:
+    value: None
+action_space:
+    value: Box(-1.0, 1.0, (4,), float32)
+actor:
+    value: |-
+        Actor(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (mu): Sequential(
+            (0): Linear(in_features=25, out_features=400, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=400, out_features=300, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=300, out_features=4, bias=True)
+            (5): Tanh()
+          )
+        )
+actor_batch_norm_stats:
+    value: '[]'
+actor_batch_norm_stats_target:
+    value: '[]'
+actor_target:
+    value: |-
+        Actor(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (mu): Sequential(
+            (0): Linear(in_features=25, out_features=400, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=400, out_features=300, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=300, out_features=4, bias=True)
+            (5): Tanh()
+          )
+        )
+algo:
+    value: DDPG
+batch_size:
+    value: 1024
+buffer_size:
+    value: 1000000
+critic:
+    value: |-
+        ContinuousCritic(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (qf0): Sequential(
+            (0): Linear(in_features=29, out_features=400, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=400, out_features=300, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=300, out_features=1, bias=True)
+          )
+        )
+critic_batch_norm_stats:
+    value: '[]'
+critic_batch_norm_stats_target:
+    value: '[]'
+critic_target:
+    value: |-
+        ContinuousCritic(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (qf0): Sequential(
+            (0): Linear(in_features=29, out_features=400, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=400, out_features=300, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=300, out_features=1, bias=True)
+          )
+        )
+device:
+    value: cuda
+env:
+    value: <stable_baselines3.common.vec_env.vec_video_recorder.VecVideoRecorder object at 0x7d4c57b99de0>
+env_name:
+    value: JengaSimplePickAndPlace-v3
+ep_info_buffer:
+    value: deque([], maxlen=100)
+ep_success_buffer:
+    value: deque([], maxlen=100)
+gamma:
+    value: 0.99
+gradient_steps:
+    value: 1
+learning_rate:
+    value: 0.001
+learning_starts:
+    value: 100
+lr_schedule:
+    value: <function get_schedule_fn.<locals>.<lambda> at 0x7d4c55142560>
+n_envs:
+    value: 16
+num_timesteps:
+    value: 0
+observation_space:
+    value: 'Dict(''achieved_goal'': Box(-10.0, 10.0, (3,), float32), ''desired_goal'': Box(-10.0, 10.0, (3,), float32), ''observation'': Box(-10.0, 10.0, (19,), float32))'
+optimize_memory_usage:
+    value: "False"
+policy:
+    value: |-
+        MultiInputPolicy(
+          (actor): Actor(
+            (features_extractor): CombinedExtractor(
+              (extractors): ModuleDict(
+                (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+                (desired_goal): Flatten(start_dim=1, end_dim=-1)
+                (observation): Flatten(start_dim=1, end_dim=-1)
+              )
+            )
+            (mu): Sequential(
+              (0): Linear(in_features=25, out_features=400, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=400, out_features=300, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=300, out_features=4, bias=True)
+              (5): Tanh()
+            )
+          )
+          (actor_target): Actor(
+            (features_extractor): CombinedExtractor(
+              (extractors): ModuleDict(
+                (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+                (desired_goal): Flatten(start_dim=1, end_dim=-1)
+                (observation): Flatten(start_dim=1, end_dim=-1)
+              )
+            )
+            (mu): Sequential(
+              (0): Linear(in_features=25, out_features=400, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=400, out_features=300, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=300, out_features=4, bias=True)
+              (5): Tanh()
+            )
+          )
+          (critic): ContinuousCritic(
+            (features_extractor): CombinedExtractor(
+              (extractors): ModuleDict(
+                (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+                (desired_goal): Flatten(start_dim=1, end_dim=-1)
+                (observation): Flatten(start_dim=1, end_dim=-1)
+              )
+            )
+            (qf0): Sequential(
+              (0): Linear(in_features=29, out_features=400, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=400, out_features=300, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=300, out_features=1, bias=True)
+            )
+          )
+          (critic_target): ContinuousCritic(
+            (features_extractor): CombinedExtractor(
+              (extractors): ModuleDict(
+                (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+                (desired_goal): Flatten(start_dim=1, end_dim=-1)
+                (observation): Flatten(start_dim=1, end_dim=-1)
+              )
+            )
+            (qf0): Sequential(
+              (0): Linear(in_features=29, out_features=400, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=400, out_features=300, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=300, out_features=1, bias=True)
+            )
+          )
+        )
+policy_class:
+    value: <class 'stable_baselines3.td3.policies.MultiInputPolicy'>
+policy_delay:
+    value: 1
+policy_kwargs:
+    value: '{''net_arch'': [400, 300], ''n_critics'': 1}'
+policy_type:
+    value: MultiInputPolicy
+replay_buffer:
+    value: <stable_baselines3.her.her_replay_buffer.HerReplayBuffer object at 0x7d4c55120a00>
+replay_buffer_class:
+    value: <class 'stable_baselines3.her.her_replay_buffer.HerReplayBuffer'>
+replay_buffer_kwargs:
+    value: '{''n_sampled_goal'': 4, ''goal_selection_strategy'': ''future''}'
+sde_sample_freq:
+    value: -1
+seed:
+    value: None
+start_time:
+    value: 1734374233989119164
+target_noise_clip:
+    value: 0
+target_policy_noise:
+    value: 0.1
+tau:
+    value: 0.005
+tensorboard_log:
+    value: runs/rdmqf38l
+total_timesteps:
+    value: 1.6e+06
+train_freq:
+    value: 'TrainFreq(frequency=1, unit=<TrainFrequencyUnit.STEP: ''step''>)'
+use_sde:
+    value: "False"
+use_sde_at_warmup:
+    value: "False"
+verbose:
+    value: 1

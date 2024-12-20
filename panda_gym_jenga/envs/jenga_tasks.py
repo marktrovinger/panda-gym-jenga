@@ -209,28 +209,34 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
     def _deterministic_action(self, action):
         # move to object
         observation = self._get_obs()
-        
         current_position = observation["observation"][0:3]
+        # move to the object
         if action == 0:
-            goal_position = observation["observation"][3:][0]
+            goal_position = observation["achieved_goal"][0:3]
+            return 1.0 * (goal_position - current_position)
         elif action == 1:
             goal_position = observation["desired_goal"][0:3]
-        action = 5.0 * (goal_position - current_position)
+            return 1.0 * (goal_position - current_position)
         if action == 2:
-            fingers_ctrl = 0.2  # limit maximum change in position
-            fingers_width = self.get_fingers_width()
-            target_fingers_width = fingers_width + fingers_ctrl
-        self.is_action_completed = True if current_position == goal_position else False
+            return current_position
         
 
     def step(self, action: np.ndarray):
         # the actions need to be changed in order to work deterministically
-        action = self._deterministic_action(action)
-        self.robot.set_action(action)
-        self.sim.step()
-        observation = self._get_obs()
-        terminated = bool(self.task.is_success(observation["achieved_goal"], self.task.get_goal()))
+        reward = -1
+        goal_action = action
+        for i in range(1000):
+            action = self._deterministic_action(goal_action)
+            #dont forget to add the gripper
+            action = np.append(action, 1.0)
+            self.robot.set_action(action)
+            self.sim.step()
+            observation = self._get_obs()
+            terminated = bool(self.task.is_success(observation["achieved_goal"], self.task.get_goal()))
+            if terminated:
+                reward = reward * i
+                continue
         truncated = False
         info = {"is_success": terminated}
-        reward = float(self.task.compute_reward(observation["achieved_goal"], self.task.get_goal(), info))
+        #reward = float(self.task.compute_reward(observation["achieved_goal"], self.task.get_goal(), info))
         return observation, reward, terminated, truncated, info
