@@ -5,7 +5,8 @@ import numpy as np
 from panda_gym.envs.core import Task
 from panda_gym.utils import distance
 
-class JengaPickAndPlace(Task):
+class JengaTower(Task):
+
     """
     """
     def __init__(
@@ -55,18 +56,49 @@ class JengaPickAndPlace(Task):
         self.sim.create_box(
             body_name="block2",
             half_extents=self.extents / 2,
-            mass=1.0,
-            position=np.array([0.5, 0.0, 1.0]),
-            rgba_color=np.array([0.1, 0.9, 0.1, 1.0]),
+            mass=2.0,
+            position=np.array([0.0, 0.0, 1.0]),
+            rgba_color=np.array([0.1, 0.1, 0.9, 1.0]),
         )
         self.sim.create_box(
             body_name="target2",
             half_extents=self.extents / 2,
             mass=0.0,
             ghost=True,
+            position=np.array([0.0, self.extents[0] / 2, self.extents[2] / 2]),
+            rgba_color=np.array([0.1, 0.1, 0.9, 0.3]),
+        )
+        elf.sim.create_box(
+            body_name="block3",
+            half_extents=self.extents / 2,
+            mass=1.0,
+            position=np.array([0.5, 0.0, 1.0]),
+            rgba_color=np.array([0.1, 0.9, 0.1, 1.0]),
+        )
+        self.sim.create_box(
+            body_name="target3",
+            half_extents=self.extents / 2,
+            mass=0.0,
+            ghost=True,
             position=np.array([0.0, -self.extents[0] / 2, self.extents[2] / 2]),
             rgba_color=np.array([0.1, 0.9, 0.1, 0.3]),
         )
+        self.sim.create_box(
+            body_name="block4",
+            half_extents=self.extents / 2,
+            mass=2.0,
+            position=np.array([0.0, 0.0, 1.0]),
+            rgba_color=np.array([0.1, 0.1, 0.9, 1.0]),
+        )
+        self.sim.create_box(
+            body_name="target4",
+            half_extents=self.extents / 2,
+            mass=0.0,
+            ghost=True,
+            position=np.array([0.0, self.extents[0] / 2, self.extents[2] / 2]),
+            rgba_color=np.array([0.1, 0.1, 0.9, 0.3]),
+        )
+        
 
     def get_obs(self) -> np.ndarray:
         # position, rotation of the block
@@ -78,6 +110,16 @@ class JengaPickAndPlace(Task):
         object2_rotation = np.array(self.sim.get_base_rotation("block2"))
         object2_velocity = np.array(self.sim.get_base_velocity("block2"))
         object2_angular_velocity = np.array(self.sim.get_base_angular_velocity("block2"))
+        object3_position = np.array(self.sim.get_base_position("block3"))
+        object3_rotation = np.array(self.sim.get_base_rotation("block3"))
+        object3_velocity = np.array(self.sim.get_base_velocity("block3"))
+        object3_angular_velocity = np.array(self.sim.get_base_angular_velocity("block3"))
+        object4_position = np.array(self.sim.get_base_position("block4"))
+        object4_rotation = np.array(self.sim.get_base_rotation("block4"))
+        object4_velocity = np.array(self.sim.get_base_velocity("block4"))
+        object4_angular_velocity = np.array(self.sim.get_base_angular_velocity("block4"))
+        
+
         observation = np.concatenate(
             [
                 object1_position,
@@ -88,6 +130,15 @@ class JengaPickAndPlace(Task):
                 object2_rotation,
                 object2_velocity,
                 object2_angular_velocity,
+                object3_position,
+                object3_rotation,
+                object3_velocity,
+                object3_angular_velocity,
+                object4_position,
+                object4_rotation,
+                object4_velocity,
+                object4_angular_velocity,
+            
             ]
         )
         return observation
@@ -95,8 +146,9 @@ class JengaPickAndPlace(Task):
     def get_achieved_goal(self) -> np.ndarray:
         object1_position = self.sim.get_base_position("block1")
         object2_position = self.sim.get_base_position("block2")
-        #object3_position = self.sim.get_base_position("object3")
-        achieved_goal = np.concatenate((object1_position, object2_position))
+        object3_position = self.sim.get_base_position("block3")
+        object4_position = self.sim.get_base_position("block4")
+        achieved_goal = np.concatenate((object1_position, object2_position, object3_position, object4_position))
         return achieved_goal
 
     def reset(self) -> None:
