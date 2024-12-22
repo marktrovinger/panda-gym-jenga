@@ -193,7 +193,7 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
         robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
         task = JengaSimplePickAndPlace(sim, reward_type=reward_type, object_size=object_size)   
         self.is_action_completed = False  
-        self.deterministic_action_space = Discrete(4,)                      
+        #self.action_space = Discrete(4,)                      
         super().__init__(                                                                                           
             robot,                                                                                                  
             task,                                                                                                   

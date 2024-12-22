@@ -9,6 +9,8 @@ panda_gym_jenga.egg-info/requires.txt
 panda_gym_jenga.egg-info/top_level.txt
 panda_gym_jenga/envs/__init__.py
 panda_gym_jenga/envs/jenga_tasks.py
+panda_gym_jenga/envs/robot/__init__.py
+panda_gym_jenga/envs/robot/kinova.py
 panda_gym_jenga/envs/tasks/__init__.py
 panda_gym_jenga/envs/tasks/jengapickandplace.py
 panda_gym_jenga/envs/tasks/simplejengapickandplace.py

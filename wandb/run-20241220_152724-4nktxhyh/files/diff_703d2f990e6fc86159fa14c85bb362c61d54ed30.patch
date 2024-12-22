@@ -1,0 +1,85 @@
+diff --git a/panda_gym_jenga/envs/jenga_tasks.py b/panda_gym_jenga/envs/jenga_tasks.py
+index 5fcb0d7..960dbf9 100644
+--- a/panda_gym_jenga/envs/jenga_tasks.py
++++ b/panda_gym_jenga/envs/jenga_tasks.py
+@@ -193,7 +193,7 @@ class JengaSimplePickAndPlaceDeterministicEnv(RobotTaskEnv):
+         robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
+         task = JengaSimplePickAndPlace(sim, reward_type=reward_type, object_size=object_size)   
+         self.is_action_completed = False  
+-        self.deterministic_action_space = Discrete(4,)                      
++        self.action_space = Discrete(4,)                      
+         super().__init__(                                                                                           
+             robot,                                                                                                  
+             task,                                                                                                   
+diff --git a/scripts/test_deterministic.py b/scripts/test_deterministic.py
+index 8e836d0..25bd2ab 100644
+--- a/scripts/test_deterministic.py
++++ b/scripts/test_deterministic.py
+@@ -1,5 +1,6 @@
+ import panda_gym
+ import gymnasium as gym
++from gymnasium.spaces import Discrete
+ import panda_gym_jenga
+ from gymnasium.wrappers import RecordVideo
+ 
+@@ -11,7 +12,8 @@ def main():
+     
+     obs, done = env.reset()
+     action_space = env.action_space
+-
++    env.action_space = Discrete(4)
++    print(f"Action space: {env.action_space}")
+     obs, reward, terminated, truncated, info = env.step(0)
+     print(f"Reward = {reward}")
+     #env.step(2)
+diff --git a/scripts/test_deterministic_dqn.py b/scripts/test_deterministic_dqn.py
+index 52ca8d8..f1c1aa8 100644
+--- a/scripts/test_deterministic_dqn.py
++++ b/scripts/test_deterministic_dqn.py
+@@ -5,17 +5,28 @@ from stable_baselines3.common.monitor import Monitor
+ from stable_baselines3.common.vec_env import DummyVecEnv, VecVideoRecorder
+ from stable_baselines3.common.env_util import make_vec_env
+ import gymnasium as gym
++from gymnasium import ActionWrapper
+ import panda_gym_jenga
+ import wandb
+ from wandb.integration.sb3 import WandbCallback
++
++class JengaActionWrapper(ActionWrapper):
++    def __init__(self, env):
++        self.action_space = gym.spaces.Discrete(4,)
++        super().__init__(env)
++        self.action_space = gym.spaces.Discrete(4,)
++
++    
+ config = {
+-        "policy_type": "MlpPolicy",
++        "policy_type": "MultiInputPolicy",
+         "total_timesteps": 100,
+         "env_name": "JengaSimplePickAndPlaceDeterministic-v3",
+     }
+ def make_env():
+     env = gym.make(config["env_name"])
+-    env = Monitor(env)  # record stats such as returns
++    env = JengaActionWrapper(env)
++    
++    #env = Monitor(env)  # record stats such as returns
+     return env
+ 
+ def main():
+@@ -29,13 +40,8 @@ def main():
+         save_code=True
+     )
+ 
+-    env = DummyVecEnv([make_env])
+-    env = VecVideoRecorder(
+-        env,
+-        f"videos/{run.id}",
+-        record_video_trigger=lambda x: x % 2000 == 0,
+-        video_length=200,
+-    )
++    env = make_env()
++    print(f"Action Space: `{env.action_space}")
+     model = DQN(
+         config["policy_type"], 
+         env=env,

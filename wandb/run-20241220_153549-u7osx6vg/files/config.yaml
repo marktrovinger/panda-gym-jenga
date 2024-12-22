@@ -1,0 +1,219 @@
+_current_progress_remaining:
+    value: 1
+_custom_logger:
+    value: "False"
+_episode_num:
+    value: 0
+_episode_storage:
+    value: None
+_last_episode_starts:
+    value: '[ True]'
+_last_obs:
+    value: |-
+        OrderedDict([('achieved_goal', array([[-0.07624894, -0.10115982,  0.0127    ]], dtype=float32)), ('desired_goal', array([[-0.12176421,  0.05241392,  0.0127    ]], dtype=float32)), ('observation', array([[ 3.8439669e-02, -2.1944723e-12,  1.9740014e-01,  0.0000000e+00,
+                -0.0000000e+00,  0.0000000e+00,  0.0000000e+00, -7.6248944e-02,
+                -1.0115982e-01,  1.2700000e-02,  0.0000000e+00, -0.0000000e+00,
+                 0.0000000e+00,  0.0000000e+00,  0.0000000e+00,  0.0000000e+00,
+                 0.0000000e+00,  0.0000000e+00,  0.0000000e+00]], dtype=float32))])
+_last_original_obs:
+    value: None
+_logger:
+    value: <stable_baselines3.common.logger.Logger object at 0x7ce6ec17c9d0>
+_n_calls:
+    value: 0
+_n_updates:
+    value: 0
+_num_timesteps_at_start:
+    value: 0
+_stats_window_size:
+    value: 100
+_total_timesteps:
+    value: 100
+_vec_normalize_env:
+    value: None
+_wandb:
+    value:
+        cli_version: 0.19.0
+        code_path: code/scripts/test_deterministic_dqn.py
+        m: []
+        python_version: 3.10.16
+        t:
+            "1":
+                - 1
+                - 55
+            "2":
+                - 1
+                - 55
+            "3":
+                - 1
+                - 16
+                - 22
+                - 23
+                - 35
+                - 55
+            "4": 3.10.16
+            "5": 0.19.0
+            "8":
+                - 5
+            "12": 0.19.0
+            "13": linux-x86_64
+action_noise:
+    value: None
+action_space:
+    value: Discrete(3)
+algo:
+    value: DQN
+batch_norm_stats:
+    value: '[]'
+batch_norm_stats_target:
+    value: '[]'
+batch_size:
+    value: 32
+buffer_size:
+    value: 1000000
+device:
+    value: cuda
+env:
+    value: <stable_baselines3.common.vec_env.dummy_vec_env.DummyVecEnv object at 0x7ce7173ce920>
+env_name:
+    value: JengaSimplePickAndPlaceDeterministic-v3
+ep_info_buffer:
+    value: deque([], maxlen=100)
+ep_success_buffer:
+    value: deque([], maxlen=100)
+exploration_final_eps:
+    value: 0.05
+exploration_fraction:
+    value: 0.1
+exploration_initial_eps:
+    value: 1
+exploration_rate:
+    value: 0
+exploration_schedule:
+    value: <function get_linear_fn.<locals>.func at 0x7ce6ec1841f0>
+gamma:
+    value: 0.99
+gradient_steps:
+    value: 1
+learning_rate:
+    value: 0.0001
+learning_starts:
+    value: 100
+lr_schedule:
+    value: <function get_schedule_fn.<locals>.<lambda> at 0x7ce71493a950>
+max_grad_norm:
+    value: 10
+n_envs:
+    value: 1
+num_timesteps:
+    value: 0
+observation_space:
+    value: 'Dict(''achieved_goal'': Box(-10.0, 10.0, (3,), float32), ''desired_goal'': Box(-10.0, 10.0, (3,), float32), ''observation'': Box(-10.0, 10.0, (19,), float32))'
+optimize_memory_usage:
+    value: "False"
+policy:
+    value: |-
+        MultiInputPolicy(
+          (q_net): QNetwork(
+            (features_extractor): CombinedExtractor(
+              (extractors): ModuleDict(
+                (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+                (desired_goal): Flatten(start_dim=1, end_dim=-1)
+                (observation): Flatten(start_dim=1, end_dim=-1)
+              )
+            )
+            (q_net): Sequential(
+              (0): Linear(in_features=25, out_features=64, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=64, out_features=3, bias=True)
+            )
+          )
+          (q_net_target): QNetwork(
+            (features_extractor): CombinedExtractor(
+              (extractors): ModuleDict(
+                (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+                (desired_goal): Flatten(start_dim=1, end_dim=-1)
+                (observation): Flatten(start_dim=1, end_dim=-1)
+              )
+            )
+            (q_net): Sequential(
+              (0): Linear(in_features=25, out_features=64, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=64, out_features=3, bias=True)
+            )
+          )
+        )
+policy_class:
+    value: <class 'stable_baselines3.dqn.policies.MultiInputPolicy'>
+policy_kwargs:
+    value: '{}'
+policy_type:
+    value: MultiInputPolicy
+q_net:
+    value: |-
+        QNetwork(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (q_net): Sequential(
+            (0): Linear(in_features=25, out_features=64, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=64, out_features=3, bias=True)
+          )
+        )
+q_net_target:
+    value: |-
+        QNetwork(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (q_net): Sequential(
+            (0): Linear(in_features=25, out_features=64, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=64, out_features=3, bias=True)
+          )
+        )
+replay_buffer:
+    value: <stable_baselines3.common.buffers.DictReplayBuffer object at 0x7ce705153ca0>
+replay_buffer_class:
+    value: <class 'stable_baselines3.common.buffers.DictReplayBuffer'>
+replay_buffer_kwargs:
+    value: '{}'
+sde_sample_freq:
+    value: -1
+seed:
+    value: None
+start_time:
+    value: 1734726951804547840
+target_update_interval:
+    value: 10000
+tau:
+    value: 1
+tensorboard_log:
+    value: runs/u7osx6vg
+total_timesteps:
+    value: 100
+train_freq:
+    value: 'TrainFreq(frequency=4, unit=<TrainFrequencyUnit.STEP: ''step''>)'
+use_sde:
+    value: "False"
+use_sde_at_warmup:
+    value: "False"
+verbose:
+    value: 1
