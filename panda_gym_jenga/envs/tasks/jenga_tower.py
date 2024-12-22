@@ -57,7 +57,7 @@ class JengaTower(Task):
             body_name="block2",
             half_extents=self.extents / 2,
             mass=2.0,
-            position=np.array([0.0, 0.0, 1.0]),
+            position=np.array([1.0, 0.0, 1.0]),
             rgba_color=np.array([0.1, 0.1, 0.9, 1.0]),
         )
         self.sim.create_box(
@@ -68,7 +68,7 @@ class JengaTower(Task):
             position=np.array([0.0, self.extents[0] / 2, self.extents[2] / 2]),
             rgba_color=np.array([0.1, 0.1, 0.9, 0.3]),
         )
-        elf.sim.create_box(
+        self.sim.create_box(
             body_name="block3",
             half_extents=self.extents / 2,
             mass=1.0,
@@ -87,7 +87,7 @@ class JengaTower(Task):
             body_name="block4",
             half_extents=self.extents / 2,
             mass=2.0,
-            position=np.array([0.0, 0.0, 1.0]),
+            position=np.array([1.0, 1.0, 0.0]),
             rgba_color=np.array([0.1, 0.1, 0.9, 1.0]),
         )
         self.sim.create_box(
