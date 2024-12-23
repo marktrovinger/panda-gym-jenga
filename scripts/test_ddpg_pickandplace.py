@@ -3,25 +3,26 @@ from stable_baselines3 import DDPG, HerReplayBuffer
 from stable_baselines3.her.goal_selection_strategy import GoalSelectionStrategy
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.vec_env import DummyVecEnv, VecVideoRecorder
+from stable_baselines3.common.env_util import make_vec_env
 import gymnasium as gym
 import panda_gym_jenga
 import wandb
 from wandb.integration.sb3 import WandbCallback
 config = {
         "policy_type": "MultiInputPolicy",
-        "total_timesteps": 1e5,
+        "total_timesteps": 1e7,
         "env_name": "JengaPickAndPlace-v3",
     }
 def make_env():
-    env = gym.make(config["env_name"])
-    env = Monitor(env)  # record stats such as returns
+    env = make_vec_env(config["env_name"], n_envs=64)
+    #env = Monitor(env)  # record stats such as returns
     return env
 
 def main():
     goal_selection_strategy = "future"
 
     run = wandb.init(
-        project="wandb_testing",
+        project="ddpg_experiments",
         config=config,
         sync_tensorboard=True,
         monitor_gym=True,
@@ -32,7 +33,7 @@ def main():
     env = VecVideoRecorder(
         env,
         f"videos/{run.id}",
-        record_video_trigger=lambda x: x % 2000 == 0,
+        record_video_trigger=lambda x: x % 100000 == 0,
         video_length=200,
         name_prefix="ddpg_pickandplace"
     )
