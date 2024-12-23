@@ -38,10 +38,11 @@ class JengaPickAndPlace(Task):
         self.sim.create_plane(z_offset=-0.4)
         self.sim.create_table(length=1.17, width=1.424, height=0.4, x_offset=-0.3)
         self.sim.create_box(
+            # blue block
             body_name="block1",
             half_extents=self.extents / 2,
             mass=2.0,
-            position=np.array([0.0, 0.0, 1.0]),
+            position=np.array([0.0, 0.0, 0.0]),
             rgba_color=np.array([0.1, 0.1, 0.9, 1.0]),
         )
         self.sim.create_box(
@@ -53,10 +54,11 @@ class JengaPickAndPlace(Task):
             rgba_color=np.array([0.1, 0.1, 0.9, 0.3]),
         )
         self.sim.create_box(
+            # green block
             body_name="block2",
             half_extents=self.extents / 2,
             mass=1.0,
-            position=np.array([0.5, 0.0, 1.0]),
+            position=np.array([1.0, 0.0, 0.0]),
             rgba_color=np.array([0.1, 0.9, 0.1, 1.0]),
         )
         self.sim.create_box(

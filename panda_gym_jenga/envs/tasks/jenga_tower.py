@@ -6,7 +6,6 @@ from panda_gym.envs.core import Task
 from panda_gym.utils import distance
 
 class JengaTower(Task):
-
     """
     """
     def __init__(
@@ -16,15 +15,16 @@ class JengaTower(Task):
         distance_threshold=0.1,
         goal_xy_range=0.3,
         obj_xy_range=0.3,
-        object_size="normal"
+        object_size="large"
     ) -> None:
         super().__init__(sim)
         self.reward_type = reward_type
         self.distance_threshold = distance_threshold
         self.object_size = object_size
         if self.object_size == "large":
-            #self.extents = np.array([0.0381, 0.12065, 0.0254])
-            self.extents = np.array([0.12065, 0.0381, 0.0254])
+            # base layer points east/west, first layer points north/south
+            self.extents_base = np.array([0.12065, 0.0381, 0.0254])
+            self.extents_layer = np.array([0.0381, 0.12065, 0.0254])
         else:
             pass
         #self.np_random = Task.
@@ -40,63 +40,63 @@ class JengaTower(Task):
         self.sim.create_table(length=1.17, width=1.424, height=0.4, x_offset=-0.3)
         self.sim.create_box(
             body_name="block1",
-            half_extents=self.extents / 2,
+            half_extents=self.extents_base / 2,
             mass=2.0,
             position=np.array([0.0, 0.0, 1.0]),
             rgba_color=np.array([0.1, 0.1, 0.9, 1.0]),
         )
         self.sim.create_box(
             body_name="target1",
-            half_extents=self.extents / 2,
+            half_extents=self.extents_base / 2,
             mass=0.0,
             ghost=True,
-            position=np.array([0.0, self.extents[0] / 2, self.extents[2] / 2]),
+            position=np.array([0.0, self.extents_base[2] / 2, self.extents_base[2] / 2]),
             rgba_color=np.array([0.1, 0.1, 0.9, 0.3]),
         )
         self.sim.create_box(
             body_name="block2",
-            half_extents=self.extents / 2,
+            half_extents=self.extents_base / 2,
             mass=2.0,
-            position=np.array([1.0, 0.0, 1.0]),
-            rgba_color=np.array([0.1, 0.1, 0.9, 1.0]),
+            position=np.array([1.0, 1.0, 1.0]),
+            rgba_color=np.array([0.9, 0.1, 0.1, 1.0]),
         )
         self.sim.create_box(
             body_name="target2",
-            half_extents=self.extents / 2,
+            half_extents=self.extents_base / 2,
             mass=0.0,
             ghost=True,
-            position=np.array([0.0, self.extents[0] / 2, self.extents[2] / 2]),
-            rgba_color=np.array([0.1, 0.1, 0.9, 0.3]),
+            position=np.array([0.0, -self.extents_base[1] / 2, self.extents_base[2] / 2]),
+            rgba_color=np.array([0.9, 0.1, 0.1, 0.3]),
         )
         self.sim.create_box(
             body_name="block3",
-            half_extents=self.extents / 2,
+            half_extents=self.extents_layer / 2,
             mass=1.0,
-            position=np.array([0.5, 0.0, 1.0]),
+            position=np.array([1.5, 1.5, 1.0]),
             rgba_color=np.array([0.1, 0.9, 0.1, 1.0]),
         )
         self.sim.create_box(
             body_name="target3",
-            half_extents=self.extents / 2,
+            half_extents=self.extents_layer / 2,
             mass=0.0,
             ghost=True,
-            position=np.array([0.0, -self.extents[0] / 2, self.extents[2] / 2]),
+            position=np.array([self.extents_layer[1] / 2, 0.0, self.extents_layer[2] / 2]),
             rgba_color=np.array([0.1, 0.9, 0.1, 0.3]),
         )
         self.sim.create_box(
             body_name="block4",
-            half_extents=self.extents / 2,
+            half_extents=self.extents_layer / 2,
             mass=2.0,
             position=np.array([1.0, 1.0, 0.0]),
-            rgba_color=np.array([0.1, 0.1, 0.9, 1.0]),
+            rgba_color=np.array([0.9, 0.9, 0.1, 1.0]),
         )
         self.sim.create_box(
             body_name="target4",
-            half_extents=self.extents / 2,
+            half_extents=self.extents_layer / 2,
             mass=0.0,
             ghost=True,
-            position=np.array([0.0, self.extents[0] / 2, self.extents[2] / 2]),
-            rgba_color=np.array([0.1, 0.1, 0.9, 0.3]),
+            position=np.array([-self.extents_layer[1] / 2, 0.0, self.extents_layer[2] / 2]),
+            rgba_color=np.array([0.9, 0.9, 0.1, 0.3]),
         )
         
 
@@ -153,32 +153,45 @@ class JengaTower(Task):
 
     def reset(self) -> None:
         self.goal = self._sample_goal()
-        object1_position, object2_position = self._sample_objects()
+        object1_position, object2_position, object3_position, object4_position = self._sample_objects()
         self.sim.set_base_pose("target1", self.goal[:3], np.array([0.0, 0.0, 0.0, 1.0]))
-        self.sim.set_base_pose("target2", self.goal[3:], np.array([0.0, 0.0, 0.0, 1.0]))
+        self.sim.set_base_pose("target2", self.goal[3:6], np.array([0.0, 0.0, 0.0, 1.0]))
         self.sim.set_base_pose("block1", object1_position, np.array([0.0, 0.0, 0.0, 1.0]))
         self.sim.set_base_pose("block2", object2_position, np.array([0.0, 0.0, 0.0, 1.0]))
+        self.sim.set_base_pose("target3", self.goal[6:9], np.array([0.0, 0.0, 0.0, 1.0]))
+        self.sim.set_base_pose("target4", self.goal[9:], np.array([0.0, 0.0, 0.0, 1.0]))
+        self.sim.set_base_pose("block3", object3_position, np.array([0.0, 0.0, 0.0, 1.0]))
+        self.sim.set_base_pose("block4", object4_position, np.array([0.0, 0.0, 0.0, 1.0]))
         
 
     def _sample_goal(self) -> np.ndarray:
-        goal1 = np.array([0.0, 0.0, self.extents[2] / 2])  # z offset for the cube center
-        goal2 = np.array([0.0, 0.0, 3 * self.extents[2] / 2])  # z offset for the cube center
+        goal1 = np.array([0.0, 0.0, self.extents_base[2] / 2])  # z offset for the cube center
+        goal2 = np.array([0.0, 0.0, 3 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal3 = np.array([0.0, 0.0, 6 *self.extents_base[2] / 2])  # z offset for the cube center
+        goal4 = np.array([0.0, 0.0, 9 * self.extents_base[2] / 2])  # z offset for the cube center
         noise = self.np_random.uniform(self.goal_range_low, self.goal_range_high)
         goal1 += noise
         goal2 += noise
-        return np.concatenate((goal1, goal2))
+        goal3 += noise
+        goal4 += noise
+        return np.concatenate((goal1, goal2, goal3, goal4))
 
     def _sample_objects(self) -> Tuple[np.ndarray, np.ndarray]:
         # while True:  # make sure that cubes are distant enough
-        object1_position = np.array([0.0, 0.0, self.extents[2] / 2])
-        object2_position = np.array([0.0, 0.0, 3 * self.extents[2] / 2])
-        
+        object1_position = np.array([0.0, 0.0, self.extents_base[2] / 2])
+        object2_position = np.array([0.0, 0.0, 3 * self.extents_base[2] / 2])
+        object3_position = np.array([0.0, 0.0, 6 * self.extents_base[2] / 2])
+        object4_position = np.array([0.0, 0.0, 9 * self.extents_base[2] / 2])
         noise1 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
         noise2 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
         object1_position += noise1
         object2_position += noise2
+        noise3 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+        noise4 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+        object3_position += noise3
+        object4_position += noise4
         # if distance(object1_position, object2_position) > 0.1:
-        return object1_position, object2_position
+        return object1_position, object2_position, object3_position, object4_position
 
     def is_success(self, achieved_goal: np.ndarray, desired_goal: np.ndarray, info: Dict[str, Any] = {}) -> np.ndarray:
         # must be vectorized !!

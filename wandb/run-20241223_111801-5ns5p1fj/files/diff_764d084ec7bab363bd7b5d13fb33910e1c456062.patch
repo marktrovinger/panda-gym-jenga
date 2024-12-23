@@ -1,0 +1,21 @@
+diff --git a/panda_gym_jenga.egg-info/SOURCES.txt b/panda_gym_jenga.egg-info/SOURCES.txt
+index 1c7b6e6..5b0ac47 100644
+--- a/panda_gym_jenga.egg-info/SOURCES.txt
++++ b/panda_gym_jenga.egg-info/SOURCES.txt
+@@ -12,6 +12,7 @@ panda_gym_jenga/envs/jenga_tasks.py
+ panda_gym_jenga/envs/robot/__init__.py
+ panda_gym_jenga/envs/robot/kinova.py
+ panda_gym_jenga/envs/tasks/__init__.py
++panda_gym_jenga/envs/tasks/jenga_tower.py
+ panda_gym_jenga/envs/tasks/jengapickandplace.py
+ panda_gym_jenga/envs/tasks/simplejengapickandplace.py
+ panda_gym_jenga/envs/tasks/stack3.py
+diff --git a/wandb/latest-run b/wandb/latest-run
+index 7bbdc38..7658be1 120000
+--- a/wandb/latest-run
++++ b/wandb/latest-run
+@@ -1 +1 @@
+-run-20241220_153549-u7osx6vg
+\ No newline at end of file
++run-20241223_111801-5ns5p1fj
+\ No newline at end of file

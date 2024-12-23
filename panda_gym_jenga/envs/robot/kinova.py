@@ -24,12 +24,12 @@ class Kinova(PyBulletRobot):
         #urdf_pather = os.path.join(os.getcwd(), "pandaenvs")
         super().__init__(
             sim,
-            body_name="GEN3_URDF_V12",
-            file_name="panda_gym_jenga/envs/robot/GEN3_URDF_V12.urdf",
+            body_name="gen3",
+            file_name="panda_gym_jenga/envs/robot/kinova_robotiq_85.urdf",
             base_position=base_position,
             action_space=action_space,
             joint_indices=np.array([0, 1, 2, 3, 4, 5, 6, 9, 10]),
-            joint_forces=np.array([87.0, 87.0, 87.0, 87.0, 12.0, 120.0, 120.0, 170.0, 170.0]),
+            joint_forces=np.array([39.0, 39.0, 39.0, 39.0, 9.0, 9.0, 9.0, 1000.0, 1000.0]),
         )
 
         self.fingers_indices = np.array([9, 10])

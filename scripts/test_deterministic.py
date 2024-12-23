@@ -7,7 +7,7 @@ from gymnasium.wrappers import RecordVideo
 
 
 def main():
-    env = gym.make("JengaSimplePickAndPlaceDeterministic-v3", render_mode = "human")
+    env = gym.make("JengaPickAndPlaceDeterministic-v3", render_mode = "human")
     #env = RecordVideo(env, video_folder="deterministic_testing", name_prefix="testing", episode_trigger=lambda x: True)
     
     obs, done = env.reset()
@@ -19,9 +19,9 @@ def main():
     print(f"Reward = {reward}")
     #env.step(2)
     env.step(2)
+    print(f"Reward = {reward}")
     env.step(1)
-    env.step(3)
-
+    print(f"Reward = {reward}")
     env.close()
 
 if __name__ == "__main__":

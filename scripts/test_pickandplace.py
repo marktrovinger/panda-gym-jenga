@@ -6,7 +6,7 @@ env = gym.make("JengaPickAndPlace-v3", render_mode="rgb_array", renderer="OpenGL
 
 observation, info = env.reset()
 image = env.render()
-plt.plot(image)
-plt.savefig("pickandplace.jpg")
+plt.imshow(image)
+plt.show()
 env.close()
 
