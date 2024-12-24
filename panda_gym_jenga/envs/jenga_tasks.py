@@ -99,6 +99,9 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
         robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
         task = JengaTower(sim, reward_type=reward_type, object_size=object_size)
+        object_goals = [False, False, False, False]
+        objective_goals = [False, False, False, False]
+        object_counter = 0
         super().__init__(
             robot, 
             task, 
@@ -123,6 +126,7 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
             else:
                 return 1.0 * (goal_position - current_position)
         elif action == 1:
+            # move to the goal
             goal_position = observation["desired_goal"][0:3]
             if np.allclose(current_position, goal_position, self.task.distance_threshold):
                 self.is_action_completed = True
