@@ -165,15 +165,10 @@ class JengaTower(Task):
         
 
     def _sample_goal(self) -> np.ndarray:
-        goal1 = np.array([0.0, 0.0, self.extents_base[2] / 2])  # z offset for the cube center
-        goal2 = np.array([0.0, 0.0, 3 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal3 = np.array([0.0, 0.0, 6 *self.extents_base[2] / 2])  # z offset for the cube center
-        goal4 = np.array([0.0, 0.0, 9 * self.extents_base[2] / 2])  # z offset for the cube center
-        noise = self.np_random.uniform(self.goal_range_low, self.goal_range_high)
-        goal1 += noise
-        goal2 += noise
-        goal3 += noise
-        goal4 += noise
+        goal1 = np.array([0.0, self.extents_base[2], self.extents_base[2] / 2])  # z offset for the cube center
+        goal2 = np.array([0.0, -self.extents_base[2], self.extents_base[2] / 2])  # z offset for the cube center
+        goal3 = np.array([self.extents_base[2], 0.0,  3 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal4 = np.array([-self.extents_base[2], 0.0, 3 * self.extents_base[2] / 2])  # z offset for the cube center
         return np.concatenate((goal1, goal2, goal3, goal4))
 
     def _sample_objects(self) -> Tuple[np.ndarray, np.ndarray]:
