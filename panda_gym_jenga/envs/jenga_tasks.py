@@ -101,7 +101,8 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
         task = JengaTower(sim, reward_type=reward_type, object_size=object_size)
         object_goals = [False, False, False, False]
         objective_goals = [False, False, False, False]
-        object_counter = 0
+        self.object_counter = 0
+        self.object_coords = self._object_map()
         super().__init__(
             robot, 
             task, 
@@ -113,12 +114,22 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
             render_pitch, 
             render_roll
         )
+
+    def _object_map(self):
+        observation = self._get_obs()
+        object_coords = []
+        for i in range(4):
+            if i < 3:
+                object_coords.append(observation["achieved_goal"][i*3:i+3])
+            else:
+                object_coords.append(observation["achieved_goal"][9:])
     def _robot_action(self, action):
         # move to object
         observation = self._get_obs()
         current_position = observation["observation"][0:3]
         # move to the object
         if action == 0:
+            goal_position = self.object_coords[self.object_counter]
             goal_position = observation["achieved_goal"][0:3]
             if np.allclose(current_position, goal_position, self.task.distance_threshold):
                 self.is_action_completed = True
@@ -130,6 +141,7 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
             goal_position = observation["desired_goal"][0:3]
             if np.allclose(current_position, goal_position, self.task.distance_threshold):
                 self.is_action_completed = True
+                self.object_counter += 1
                 return current_position
             else: 
                 return 1.0 * (goal_position - current_position)
