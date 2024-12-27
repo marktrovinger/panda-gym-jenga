@@ -4,5 +4,6 @@ from panda_gym_jenga.envs.jenga_tasks import (
     JengaPickAndPlaceDeterministicEnv,
     JengaSimplePickAndPlaceEnv,
     JengaSimplePickAndPlaceDeterministicEnv,
-    JengaTowerEnv
+    JengaTowerEnv,
+    JengaTowerDeterministicEnv
 )

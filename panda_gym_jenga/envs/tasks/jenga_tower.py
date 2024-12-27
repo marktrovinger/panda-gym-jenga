@@ -14,7 +14,7 @@ class JengaTower(Task):
         reward_type="sparse",
         distance_threshold=0.1,
         goal_xy_range=0.3,
-        obj_xy_range=0.3,
+        obj_xy_range=0.4,
         object_size="large"
     ) -> None:
         super().__init__(sim)

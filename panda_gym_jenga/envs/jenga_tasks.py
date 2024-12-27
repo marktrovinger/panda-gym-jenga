@@ -48,10 +48,10 @@ class JengaTowerEnv(RobotTaskEnv):
             object_size: str = "large"
         ) -> None:
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
-        robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
+        self.robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
         task = JengaTower(sim, reward_type=reward_type, object_size=object_size)
         super().__init__(
-            robot, 
+            self.robot, 
             task, 
             render_width, 
             render_height, 
@@ -102,8 +102,9 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
         object_goals = [False, False, False, False]
         objective_goals = [False, False, False, False]
         self.object_counter = 0
-        self.object_coords = self._object_map()
-        self.objective_coords = self._objective_map()
+        self.is_action_completed = False
+        self.object_coords = []
+        self.objective_coords = []
         super().__init__(
             robot, 
             task, 
@@ -115,34 +116,35 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
             render_pitch, 
             render_roll
         )
+        
 
     def _objective_map(self):
         observation = self._get_obs()
-        object_coords = []
+        #object_coords = []
         for i in range(4):
             if i < 3:
                 # first 3 coords
                 if i > 0:
-                    object_coords.append(observation["desired_goal"][i*3:(i*3)+3])
+                    self.objective_coords.append(observation["desired_goal"][i*3:(i*3)+3])
                 else:
-                    object_coords.append(observation["desired_goal"][i*3:(i*3)])
+                    self.objective_coords.append(observation["desired_goal"][i*3:(i+3)])
             else:
                 # last object
-                object_coords.append(observation["desired_goal"][9:])
+                self.objective_coords.append(observation["desired_goal"][9:])
 
     def _object_map(self):
         observation = self._get_obs()
-        object_coords = []
+        #object_coords = []
         for i in range(4):
             if i < 3:
                 # first 3 coords
                 if i > 0:
-                    object_coords.append(observation["achieved_goal"][i*3:(i*3)+3])
+                    self.object_coords.append(observation["achieved_goal"][i*3:(i*3)+3])
                 else:
-                    object_coords.append(observation["achieved_goal"][i*3:(i*3)])
+                    self.object_coords.append(observation["achieved_goal"][i*3:(i+3)])
             else:
                 # last object
-                object_coords.append(observation["achieved_goal"][9:])
+                self.object_coords.append(observation["achieved_goal"][9:])
     def _robot_action(self, action):
         # move to object
         observation = self._get_obs()
@@ -183,6 +185,8 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
     def step(self, action: np.ndarray):
         # the actions need to be changed in order to work deterministically
         reward = -1
+        self._object_map()
+        self._objective_map()
         goal_action = action
         for i in range(1000):
             # check to see if we are done with the overall objective
@@ -195,6 +199,7 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
                         "time_taken": i
                     }
                 self.is_action_completed = False
+                self.robot.reset()
                 return observation, reward, terminated, truncated, info
             elif self.is_action_completed and goal_action != 1:
                 observation = self._get_obs()
