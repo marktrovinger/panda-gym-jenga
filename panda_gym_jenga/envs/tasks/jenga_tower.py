@@ -15,12 +15,14 @@ class JengaTower(Task):
         distance_threshold=0.1,
         goal_xy_range=0.3,
         obj_xy_range=0.4,
-        object_size="large"
+        object_size="large",
+        deterministic=False
     ) -> None:
         super().__init__(sim)
         self.reward_type = reward_type
         self.distance_threshold = distance_threshold
         self.object_size = object_size
+        self.deterministic = deterministic
         if self.object_size == "large":
             # base layer points east/west, first layer points north/south
             self.extents_base = np.array([0.12065, 0.0381, 0.0254])
@@ -174,17 +176,18 @@ class JengaTower(Task):
     def _sample_objects(self) -> Tuple[np.ndarray, np.ndarray]:
         # while True:  # make sure that cubes are distant enough
         object1_position = np.array([0.0, 0.0, self.extents_base[2] / 2])
-        object2_position = np.array([0.0, 0.0, 3 * self.extents_base[2] / 2])
-        object3_position = np.array([0.0, 0.0, 6 * self.extents_base[2] / 2])
-        object4_position = np.array([0.0, 0.0, 9 * self.extents_base[2] / 2])
-        noise1 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
-        noise2 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
-        object1_position += noise1
-        object2_position += noise2
-        noise3 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
-        noise4 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
-        object3_position += noise3
-        object4_position += noise4
+        object2_position = np.array([0.0, 0.1, self.extents_base[2] / 2])
+        object3_position = np.array([0.1, 0.1, self.extents_base[2] / 2])
+        object4_position = np.array([0.15, 0.15, self.extents_base[2] / 2])
+        if not self.deterministic:
+            noise1 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+            noise2 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+            object1_position += noise1
+            object2_position += noise2
+            noise3 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+            noise4 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+            object3_position += noise3
+            object4_position += noise4
         # if distance(object1_position, object2_position) > 0.1:
         return object1_position, object2_position, object3_position, object4_position
 

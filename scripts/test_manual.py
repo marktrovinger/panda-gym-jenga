@@ -1,11 +1,12 @@
 import gymnasium as gym
 import panda_gym
+import panda_gym_jenga
 import numpy as np
 
 
 
 def main():
-    env = gym.make("PandaPickAndPlace-v3", render_mode="human")
+    env = gym.make("JengaPickAndPlace-v3", render_mode="human", robot="kinova")
     observation, info = env.reset()
     for _ in range(1000):
         current_position = observation["observation"][0:3]

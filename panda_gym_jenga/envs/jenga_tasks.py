@@ -94,11 +94,12 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
             render_yaw = 45, 
             render_pitch = -30, 
             render_roll = 0,
-            object_size: str = "large"
+            object_size: str = "large",
+            deterministic = False
         ) -> None:
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
         robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
-        task = JengaTower(sim, reward_type=reward_type, object_size=object_size)
+        task = JengaTower(sim, reward_type=reward_type, object_size=object_size, deterministic=deterministic)
         object_goals = [False, False, False, False]
         objective_goals = [False, False, False, False]
         self.object_counter = 0
@@ -252,10 +253,14 @@ class JengaPickAndPlaceEnv(RobotTaskEnv):
             render_yaw = 45, 
             render_pitch = -30, 
             render_roll = 0,
-            object_size: str = "large"
+            object_size: str = "large",
+            robot: str = "panda"
         ) -> None:
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
-        robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, -0.406, 0.0]), control_type=control_type)
+        if robot == "kinova":
+            robot = Kinova(sim, block_gripper=False, base_position=np.array([-0.6, -0.406, 0.0]), control_type=control_type)
+        else:
+            robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, -0.406, 0.0]), control_type=control_type)
         task = JengaPickAndPlace(sim, reward_type=reward_type, object_size=object_size)
         super().__init__(
             robot, 

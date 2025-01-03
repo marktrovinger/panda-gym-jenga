@@ -1,0 +1,129 @@
+diff --git a/JengaTower.png b/JengaTower.png
+index d6929f6..25850ad 100644
+Binary files a/JengaTower.png and b/JengaTower.png differ
+diff --git a/panda_gym_jenga/__init__.py b/panda_gym_jenga/__init__.py
+index 251cd3d..483e60e 100644
+--- a/panda_gym_jenga/__init__.py
++++ b/panda_gym_jenga/__init__.py
+@@ -18,6 +18,6 @@ for task in ["Stack3", "PickAndPlace", "PickAndPlaceDeterministic" "SimplePickAn
+                 id=env_id,
+                 entry_point=f"panda_gym_jenga.envs:Jenga{task}Env",
+                 kwargs={"reward_type": reward_type, "control_type": control_type},
+-                max_episode_steps=100 if task == "Stack3" or task == "TowerDeterministic" else 50,
++                max_episode_steps=500 if task == "Stack3" or task == "TowerDeterministic" else 50,
+             )
+             ENV_IDS.append(env_id)
+diff --git a/panda_gym_jenga/envs/jenga_tasks.py b/panda_gym_jenga/envs/jenga_tasks.py
+index ccbc036..4e986fd 100644
+--- a/panda_gym_jenga/envs/jenga_tasks.py
++++ b/panda_gym_jenga/envs/jenga_tasks.py
+@@ -252,10 +252,14 @@ class JengaPickAndPlaceEnv(RobotTaskEnv):
+             render_yaw = 45, 
+             render_pitch = -30, 
+             render_roll = 0,
+-            object_size: str = "large"
++            object_size: str = "large",
++            robot: str = "panda"
+         ) -> None:
+         sim = PyBullet(render_mode=render_mode, renderer=renderer)
+-        robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, -0.406, 0.0]), control_type=control_type)
++        if robot == "kinova":
++            robot = Kinova(sim, block_gripper=False, base_position=np.array([-0.6, -0.406, 0.0]), control_type=control_type)
++        else:
++            robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, -0.406, 0.0]), control_type=control_type)
+         task = JengaPickAndPlace(sim, reward_type=reward_type, object_size=object_size)
+         super().__init__(
+             robot, 
+diff --git a/panda_gym_jenga/envs/tasks/jenga_tower.py b/panda_gym_jenga/envs/tasks/jenga_tower.py
+index a2352a6..1f2cee4 100644
+--- a/panda_gym_jenga/envs/tasks/jenga_tower.py
++++ b/panda_gym_jenga/envs/tasks/jenga_tower.py
+@@ -15,12 +15,14 @@ class JengaTower(Task):
+         distance_threshold=0.1,
+         goal_xy_range=0.3,
+         obj_xy_range=0.4,
+-        object_size="large"
++        object_size="large",
++        deterministic=False
+     ) -> None:
+         super().__init__(sim)
+         self.reward_type = reward_type
+         self.distance_threshold = distance_threshold
+         self.object_size = object_size
++        self.deterministic = deterministic
+         if self.object_size == "large":
+             # base layer points east/west, first layer points north/south
+             self.extents_base = np.array([0.12065, 0.0381, 0.0254])
+@@ -174,17 +176,18 @@ class JengaTower(Task):
+     def _sample_objects(self) -> Tuple[np.ndarray, np.ndarray]:
+         # while True:  # make sure that cubes are distant enough
+         object1_position = np.array([0.0, 0.0, self.extents_base[2] / 2])
+-        object2_position = np.array([0.0, 0.0, 3 * self.extents_base[2] / 2])
+-        object3_position = np.array([0.0, 0.0, 6 * self.extents_base[2] / 2])
+-        object4_position = np.array([0.0, 0.0, 9 * self.extents_base[2] / 2])
+-        noise1 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+-        noise2 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+-        object1_position += noise1
+-        object2_position += noise2
+-        noise3 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+-        noise4 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+-        object3_position += noise3
+-        object4_position += noise4
++        object2_position = np.array([0.1, 0.1, self.extents_base[2] / 2])
++        object3_position = np.array([0.2, 0.2, self.extents_base[2] / 2])
++        object4_position = np.array([0.3, 0.3, self.extents_base[2] / 2])
++        if not self.deterministic:
++            noise1 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
++            noise2 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
++            object1_position += noise1
++            object2_position += noise2
++            noise3 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
++            noise4 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
++            object3_position += noise3
++            object4_position += noise4
+         # if distance(object1_position, object2_position) > 0.1:
+         return object1_position, object2_position, object3_position, object4_position
+ 
+diff --git a/runs/5ns5p1fj/DDPG_1/events.out.tfevents.1734970706.brawler-yukon.173588.0 b/runs/5ns5p1fj/DDPG_1/events.out.tfevents.1734970706.brawler-yukon.173588.0
+index befb357..87b7d49 100644
+Binary files a/runs/5ns5p1fj/DDPG_1/events.out.tfevents.1734970706.brawler-yukon.173588.0 and b/runs/5ns5p1fj/DDPG_1/events.out.tfevents.1734970706.brawler-yukon.173588.0 differ
+diff --git a/scripts/test_deterministic.py b/scripts/test_deterministic.py
+index 728320b..f42d053 100644
+--- a/scripts/test_deterministic.py
++++ b/scripts/test_deterministic.py
+@@ -7,7 +7,7 @@ from gymnasium.wrappers import RecordVideo
+ 
+ 
+ def main():
+-    env = gym.make("JengaTowerDeterministic-v3", render_mode = "human")
++    env = gym.make("JengaTowerDeterministic-v3", render_mode = "human", deterministic=True)
+     #env = RecordVideo(env, video_folder="deterministic_testing", name_prefix="testing", episode_trigger=lambda x: True)
+     
+     obs, done = env.reset()
+diff --git a/scripts/test_manual.py b/scripts/test_manual.py
+index 7e135e4..af80ba2 100644
+--- a/scripts/test_manual.py
++++ b/scripts/test_manual.py
+@@ -1,11 +1,12 @@
+ import gymnasium as gym
+ import panda_gym
++import panda_gym_jenga
+ import numpy as np
+ 
+ 
+ 
+ def main():
+-    env = gym.make("PandaPickAndPlace-v3", render_mode="human")
++    env = gym.make("JengaPickAndPlace-v3", render_mode="human", robot="kinova")
+     observation, info = env.reset()
+     for _ in range(1000):
+         current_position = observation["observation"][0:3]
+diff --git a/wandb/latest-run b/wandb/latest-run
+index 7658be1..c06bf47 120000
+--- a/wandb/latest-run
++++ b/wandb/latest-run
+@@ -1 +1 @@
+-run-20241223_111801-5ns5p1fj
+\ No newline at end of file
++run-20250101_134529-yei8srj0
+\ No newline at end of file
