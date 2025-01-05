@@ -189,7 +189,7 @@ class JengaTowerDeterministicEnv(RobotTaskEnv):
         self._object_map()
         self._objective_map()
         goal_action = action
-        for i in range(1000):
+        for i in range(100):
             # check to see if we are done with the overall objective
             if self.is_action_completed and goal_action == 1:
                 observation = self._get_obs()
