@@ -5,8 +5,8 @@ import numpy as np
 from panda_gym.envs.core import Task
 from panda_gym.utils import distance
 
-class JengaTower(Task):
-    """
+class JengaTower3(Task):
+    """ A 3-layer version of the Jenga Stacking task.
     """
     def __init__(
         self,
@@ -98,7 +98,36 @@ class JengaTower(Task):
             position=np.array([-self.extents_base[1] / 2, 0.0, self.extents_base[2] / 2]),
             rgba_color=np.array([0.9, 0.9, 0.1, 0.3]),
         )
-        
+        self.sim.create_box(
+            body_name="block5",
+            half_extents=self.extents_base / 2,
+            mass=2.0,
+            position=np.array([1.5, 1.5, 1.0]),
+            rgba_color=np.array([0.9, 0.5, 0.1, 1.0]),
+        )
+        self.sim.create_box(
+            body_name="target5",
+            half_extents=self.extents_base / 2,
+            mass=0.0,
+            ghost=True,
+            position=np.array([self.extents_base[1] / 2, 0.0, self.extents_base[2] / 2]),
+            rgba_color=np.array([0.9, 0.5, 0.1, 0.3]),
+        )
+        self.sim.create_box(
+            body_name="block6",
+            half_extents=self.extents_base / 2,
+            mass=2.0,
+            position=np.array([1.0, 1.0, 0.0]),
+            rgba_color=np.array([0.25, 0.1, 0.9, 1.0]),
+        )
+        self.sim.create_box(
+            body_name="target6",
+            half_extents=self.extents_base / 2,
+            mass=0.0,
+            ghost=True,
+            position=np.array([-self.extents_base[1] / 2, 0.0, self.extents_base[2] / 2]),
+            rgba_color=np.array([0.25, 0.1, 0.9, 0.3]),
+        )
 
     def get_obs(self) -> np.ndarray:
         # position, rotation of the block
@@ -118,6 +147,14 @@ class JengaTower(Task):
         object4_rotation = np.array(self.sim.get_base_rotation("block4"))
         object4_velocity = np.array(self.sim.get_base_velocity("block4"))
         object4_angular_velocity = np.array(self.sim.get_base_angular_velocity("block4"))
+        object5_position = np.array(self.sim.get_base_position("block3"))
+        object5_rotation = np.array(self.sim.get_base_rotation("block3"))
+        object5_velocity = np.array(self.sim.get_base_velocity("block3"))
+        object5_angular_velocity = np.array(self.sim.get_base_angular_velocity("block3"))
+        object6_position = np.array(self.sim.get_base_position("block4"))
+        object6_rotation = np.array(self.sim.get_base_rotation("block4"))
+        object6_velocity = np.array(self.sim.get_base_velocity("block4"))
+        object6_angular_velocity = np.array(self.sim.get_base_angular_velocity("block4"))
         
 
         observation = np.concatenate(
@@ -138,6 +175,14 @@ class JengaTower(Task):
                 object4_rotation,
                 object4_velocity,
                 object4_angular_velocity,
+                object5_position,
+                object5_rotation,
+                object5_velocity,
+                object5_angular_velocity,
+                object6_position,
+                object6_rotation,
+                object6_velocity,
+                object6_angular_velocity,
             
             ]
         )
@@ -148,7 +193,9 @@ class JengaTower(Task):
         object2_position = self.sim.get_base_position("block2")
         object3_position = self.sim.get_base_position("block3")
         object4_position = self.sim.get_base_position("block4")
-        achieved_goal = np.concatenate((object1_position, object2_position, object3_position, object4_position))
+        object5_position = self.sim.get_base_position("block5")
+        object6_position = self.sim.get_base_position("block6")
+        achieved_goal = np.concatenate((object1_position, object2_position, object3_position, object4_position,object5_position,object6_position))
         return achieved_goal
 
     def reset(self) -> None:
@@ -159,9 +206,13 @@ class JengaTower(Task):
         self.sim.set_base_pose("block1", object1_position, np.array([0.0, 0.0, 0.0, 1.0]))
         self.sim.set_base_pose("block2", object2_position, np.array([0.0, 0.0, 0.0, 1.0]))
         self.sim.set_base_pose("target3", self.goal[6:9], np.array([0.0, 0.0, 1.0, 1.0]))
-        self.sim.set_base_pose("target4", self.goal[9:], np.array([0.0, 0.0, 01.0, 1.0]))
+        self.sim.set_base_pose("target4", self.goal[9:], np.array([0.0, 0.0, 1.0, 1.0]))
         self.sim.set_base_pose("block3", object3_position, np.array([0.0, 0.0, 1.0, 1.0]))
         self.sim.set_base_pose("block4", object4_position, np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("target5", self.goal[6:9], np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("target6", self.goal[9:], np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("block5", object3_position, np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("block6", object4_position, np.array([0.0, 0.0, 1.0, 1.0]))
         
 
     def _sample_goal(self) -> np.ndarray:
@@ -169,6 +220,8 @@ class JengaTower(Task):
         goal2 = np.array([0.0, -self.extents_base[1], self.extents_base[2] / 2])  # z offset for the cube center
         goal3 = np.array([self.extents_base[1], 0.0,  3 * self.extents_base[2] / 2])  # z offset for the cube center
         goal4 = np.array([-self.extents_base[1], 0.0, 3 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal1 = np.array([0.0, self.extents_base[1], 6 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal2 = np.array([0.0, -self.extents_base[1], 6 * self.extents_base[2] / 2])  # z offset for the cube center
         return np.concatenate((goal1, goal2, goal3, goal4))
 
     def _sample_objects(self) -> Tuple[np.ndarray, np.ndarray]:
@@ -177,6 +230,8 @@ class JengaTower(Task):
         object2_position = np.array([0.0, -0.1, self.extents_base[2] / 2])
         object3_position = np.array([0.1, -0.1, self.extents_base[2] / 2])
         object4_position = np.array([-0.1, 0.1, self.extents_base[2] / 2])
+        object5_position = np.array([0.2, -0.1, self.extents_base[2] / 2])
+        object6_position = np.array([-0.2, 0.1, self.extents_base[2] / 2])
         if not self.deterministic:
             noise1 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
             noise2 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
@@ -186,8 +241,12 @@ class JengaTower(Task):
             noise4 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
             object3_position += noise3
             object4_position += noise4
+            noise5 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+            noise6 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+            object5_position += noise5
+            object6_position += noise6
         # if distance(object1_position, object2_position) > 0.1:
-        return object1_position, object2_position, object3_position, object4_position
+        return object1_position, object2_position, object3_position, object4_position, object5_position, object6_position
 
     def is_success(self, achieved_goal: np.ndarray, desired_goal: np.ndarray, info: Dict[str, Any] = {}) -> np.ndarray:
         # must be vectorized !!

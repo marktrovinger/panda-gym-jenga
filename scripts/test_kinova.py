@@ -16,5 +16,7 @@ def main():
         #image = sim.render()
         #plt.imshow(image)
 
+    i = input("Press enter to end simulation.")
+
 if __name__ == "__main__":
     main()
