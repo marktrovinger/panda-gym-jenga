@@ -147,14 +147,14 @@ class JengaTower3(Task):
         object4_rotation = np.array(self.sim.get_base_rotation("block4"))
         object4_velocity = np.array(self.sim.get_base_velocity("block4"))
         object4_angular_velocity = np.array(self.sim.get_base_angular_velocity("block4"))
-        object5_position = np.array(self.sim.get_base_position("block3"))
-        object5_rotation = np.array(self.sim.get_base_rotation("block3"))
-        object5_velocity = np.array(self.sim.get_base_velocity("block3"))
-        object5_angular_velocity = np.array(self.sim.get_base_angular_velocity("block3"))
-        object6_position = np.array(self.sim.get_base_position("block4"))
-        object6_rotation = np.array(self.sim.get_base_rotation("block4"))
-        object6_velocity = np.array(self.sim.get_base_velocity("block4"))
-        object6_angular_velocity = np.array(self.sim.get_base_angular_velocity("block4"))
+        object5_position = np.array(self.sim.get_base_position("block5"))
+        object5_rotation = np.array(self.sim.get_base_rotation("block5"))
+        object5_velocity = np.array(self.sim.get_base_velocity("block5"))
+        object5_angular_velocity = np.array(self.sim.get_base_angular_velocity("block6"))
+        object6_position = np.array(self.sim.get_base_position("block6"))
+        object6_rotation = np.array(self.sim.get_base_rotation("block6"))
+        object6_velocity = np.array(self.sim.get_base_velocity("block6"))
+        object6_angular_velocity = np.array(self.sim.get_base_angular_velocity("block6"))
         
 
         observation = np.concatenate(
@@ -195,34 +195,35 @@ class JengaTower3(Task):
         object4_position = self.sim.get_base_position("block4")
         object5_position = self.sim.get_base_position("block5")
         object6_position = self.sim.get_base_position("block6")
-        achieved_goal = np.concatenate((object1_position, object2_position, object3_position, object4_position,object5_position,object6_position))
+        achieved_goal = np.concatenate((object1_position, object2_position, object3_position, object4_position, object5_position, object6_position))
         return achieved_goal
 
     def reset(self) -> None:
         self.goal = self._sample_goal()
-        object1_position, object2_position, object3_position, object4_position = self._sample_objects()
+        object1_position, object2_position, object3_position, object4_position, object5_position, object6_position = self._sample_objects()
         self.sim.set_base_pose("target1", self.goal[:3], np.array([0.0, 0.0, 0.0, 1.0]))
         self.sim.set_base_pose("target2", self.goal[3:6], np.array([0.0, 0.0, 0.0, 1.0]))
         self.sim.set_base_pose("block1", object1_position, np.array([0.0, 0.0, 0.0, 1.0]))
         self.sim.set_base_pose("block2", object2_position, np.array([0.0, 0.0, 0.0, 1.0]))
         self.sim.set_base_pose("target3", self.goal[6:9], np.array([0.0, 0.0, 1.0, 1.0]))
-        self.sim.set_base_pose("target4", self.goal[9:], np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("target4", self.goal[9:12], np.array([0.0, 0.0, 1.0, 1.0]))
         self.sim.set_base_pose("block3", object3_position, np.array([0.0, 0.0, 1.0, 1.0]))
         self.sim.set_base_pose("block4", object4_position, np.array([0.0, 0.0, 1.0, 1.0]))
-        self.sim.set_base_pose("target5", self.goal[6:9], np.array([0.0, 0.0, 1.0, 1.0]))
-        self.sim.set_base_pose("target6", self.goal[9:], np.array([0.0, 0.0, 1.0, 1.0]))
-        self.sim.set_base_pose("block5", object3_position, np.array([0.0, 0.0, 1.0, 1.0]))
-        self.sim.set_base_pose("block6", object4_position, np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("target5", self.goal[12:15], np.array([0.0, 0.0, 0.0, 1.0]))
+        self.sim.set_base_pose("target6", self.goal[15:], np.array([0.0, 0.0, 0.0, 1.0]))
+        self.sim.set_base_pose("block5", object5_position, np.array([0.0, 0.0, 0.0, 1.0]))
+        self.sim.set_base_pose("block6", object6_position, np.array([0.0, 0.0, 0.0, 1.0]))
         
 
     def _sample_goal(self) -> np.ndarray:
-        goal1 = np.array([0.0, self.extents_base[1], self.extents_base[2] / 2])  # z offset for the cube center
-        goal2 = np.array([0.0, -self.extents_base[1], self.extents_base[2] / 2])  # z offset for the cube center
-        goal3 = np.array([self.extents_base[1], 0.0,  3 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal4 = np.array([-self.extents_base[1], 0.0, 3 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal1 = np.array([0.0, self.extents_base[1], 6 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal2 = np.array([0.0, -self.extents_base[1], 6 * self.extents_base[2] / 2])  # z offset for the cube center
-        return np.concatenate((goal1, goal2, goal3, goal4))
+        goal1 = np.array([0.0, self.extents_base[1] - 0.01, self.extents_base[2] / 2])  # z offset for the cube center
+        goal2 = np.array([0.0, -self.extents_base[1] + 0.01, self.extents_base[2] / 2])  # z offset for the cube center
+        goal3 = np.array([self.extents_base[1] - 0.05, 0.0,  3 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal4 = np.array([-self.extents_base[1] + 0.05, 0.0, 3 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal5 = np.array([0.0, self.extents_base[1] - 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal6 = np.array([0.0, -self.extents_base[1] + 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
+
+        return np.concatenate((goal1, goal2, goal3, goal4, goal5, goal6))
 
     def _sample_objects(self) -> Tuple[np.ndarray, np.ndarray]:
         # while True:  # make sure that cubes are distant enough
@@ -230,7 +231,7 @@ class JengaTower3(Task):
         object2_position = np.array([0.0, -0.1, self.extents_base[2] / 2])
         object3_position = np.array([0.1, -0.1, self.extents_base[2] / 2])
         object4_position = np.array([-0.1, 0.1, self.extents_base[2] / 2])
-        object5_position = np.array([0.2, -0.1, self.extents_base[2] / 2])
+        object5_position = np.array([-0.2, -0.1, self.extents_base[2] / 2])
         object6_position = np.array([-0.2, 0.1, self.extents_base[2] / 2])
         if not self.deterministic:
             noise1 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)

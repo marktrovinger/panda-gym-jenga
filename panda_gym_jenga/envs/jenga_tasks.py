@@ -263,10 +263,9 @@ class JengaTower3DeterministicEnv(RobotTaskEnv):
         ) -> None:
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
         #robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
-        robot = Kinova(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
-        task = JengaTower3(sim, reward_type=reward_type, object_size=object_size, deterministic=deterministic, distance_threshold=0.1)
-        object_goals = [False, False, False, False]
-        objective_goals = [False, False, False, False]
+        robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
+        task = JengaTower3(sim, reward_type=reward_type, object_size=object_size, deterministic=deterministic, distance_threshold=0.07)
+        self.higher_z = False
         self.object_counter = 0
         self.is_action_completed = False
         self.object_coords = []
@@ -289,8 +288,8 @@ class JengaTower3DeterministicEnv(RobotTaskEnv):
     def _objective_map(self):
         observation = self._get_obs()
         #object_coords = []
-        for i in range(4):
-            if i < 3:
+        for i in range(6):
+            if i < 5:
                 # first 3 coords
                 if i > 0:
                     self.objective_coords.append(observation["desired_goal"][i*3:(i*3)+3])
@@ -298,13 +297,13 @@ class JengaTower3DeterministicEnv(RobotTaskEnv):
                     self.objective_coords.append(observation["desired_goal"][i*3:(i+3)])
             else:
                 # last object
-                self.objective_coords.append(observation["desired_goal"][9:])
+                self.objective_coords.append(observation["desired_goal"][15:])
 
     def _object_map(self):
         observation = self._get_obs()
         #object_coords = []
-        for i in range(4):
-            if i < 3:
+        for i in range(6):
+            if i < 5:
                 # first 3 coords
                 if i > 0:
                     self.object_coords.append(observation["achieved_goal"][i*3:(i*3)+3])
@@ -312,7 +311,7 @@ class JengaTower3DeterministicEnv(RobotTaskEnv):
                     self.object_coords.append(observation["achieved_goal"][i*3:(i+3)])
             else:
                 # last object
-                self.object_coords.append(observation["achieved_goal"][9:])
+                self.object_coords.append(observation["achieved_goal"][15:])
     def _robot_action(self, action):
         # move to object
         observation = self._get_obs()
@@ -329,15 +328,26 @@ class JengaTower3DeterministicEnv(RobotTaskEnv):
                 return 4.6 * (goal_position - current_position)
         elif action == 1:
             # move to the goal
-            goal_position = self.objective_coords[self.object_counter]
-            #goal_position = observation["desired_goal"][0:3]
-            if np.allclose(current_position, goal_position, self.task.distance_threshold):
-                self.is_action_completed = True
-                self.object_counter += 1
-
-                return current_position
-            else: 
-                return 4.6 * (goal_position - current_position)
+            # for the stacking to work, we need to move to a higher z position first
+            if not self.higher_z:
+                goal_position = self.objective_coords[self.object_counter] + np.array([0.0, 0.0, 0.09])
+                if np.allclose(current_position, goal_position, 0.1):
+                    self.higher_z = True
+                    return current_position
+                else: 
+                    return 4.6 * (goal_position - current_position)
+            else:
+                goal_position = self.objective_coords[self.object_counter]
+                if np.allclose(current_position, goal_position, self.task.distance_threshold):
+                    self.is_action_completed = True
+                    self.object_counter += 1
+                    self.higher_z = False
+                    return current_position
+                else: 
+                    return 4.6 * (goal_position - current_position)
+            
+            
+            
         if action == 2:
             self.robot.block_gripper = True
             gripper_action = np.append(current_position, 0.0)
