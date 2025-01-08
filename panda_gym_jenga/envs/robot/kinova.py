@@ -24,8 +24,8 @@ class Kinova(PyBulletRobot):
         #urdf_pather = os.path.join(os.getcwd(), "pandaenvs")
         super().__init__(
             sim,
-            body_name="gen3",
-            file_name="panda_gym_jenga/envs/robot/kinova_robotiq_85.urdf",
+            body_name="gen3_robotiq_2f_140",
+            file_name="panda_gym_jenga/envs/robot/kinova_robotiq_140.urdf",
             base_position=base_position,
             action_space=action_space,
             joint_indices=np.array([0, 1, 2, 3, 4, 5, 6, 9, 10]),
@@ -34,7 +34,7 @@ class Kinova(PyBulletRobot):
 
         self.fingers_indices = np.array([9, 10])
         self.neutral_joint_values = np.array([0.00, 0.41, 0.00, -1.85, 0.00, 2.26, 0.79, 0.00, 0.00])
-        self.ee_link = 11
+        self.ee_link = 8
         self.sim.set_lateral_friction(self.body_name, self.fingers_indices[0], lateral_friction=1.0)
         self.sim.set_lateral_friction(self.body_name, self.fingers_indices[1], lateral_friction=1.0)
         self.sim.set_spinning_friction(self.body_name, self.fingers_indices[0], spinning_friction=0.001)

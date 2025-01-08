@@ -9,11 +9,11 @@ import wandb
 from wandb.integration.sb3 import WandbCallback
 config = {
         "policy_type": "MultiInputPolicy",
-        "total_timesteps": 1e6,
+        "total_timesteps": 1e7,
         "env_name": "JengaTower-v3",
     }
 def make_env():
-    env = make_vec_env(config["env_name"], n_envs=16)
+    env = make_vec_env(config["env_name"], n_envs=64)
     #env = Monitor(env)  # record stats such as returns
     return env
 
@@ -32,7 +32,7 @@ def main():
     env = VecVideoRecorder(
         env,
         f"videos/{run.id}",
-        record_video_trigger=lambda x: x % 2000 == 0,
+        record_video_trigger=lambda x: x % 200000 == 0,
         video_length=200,
     )
     model = DDPG(
