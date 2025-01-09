@@ -1,0 +1,12 @@
+diff --git a/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc b/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc
+index 7c1114c..1e391ef 100644
+Binary files a/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc and b/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc differ
+diff --git a/wandb/latest-run b/wandb/latest-run
+index 07c69d6..c710b03 120000
+--- a/wandb/latest-run
++++ b/wandb/latest-run
+@@ -1 +1 @@
+-run-20250101_135257-4inctcpa
+\ No newline at end of file
++run-20250108_131759-t8vyu2zl
+\ No newline at end of file

@@ -3,7 +3,7 @@
   "algo": "APPO",
   "env": "panda_reach",
   "experiment": "default_experiment",
-  "train_dir": "/Users/marktrovinger/Projects/panda-gym-jenga/train_dir",
+  "train_dir": "/home/marktrovinger/Projects/panda-gym-jenga/train_dir",
   "restart_behavior": "resume",
   "device": "gpu",
   "seed": null,
@@ -58,7 +58,7 @@
   "set_workers_cpu_affinity": true,
   "force_envs_single_thread": false,
   "default_niceness": 0,
-  "log_to_file": true,
+  "log_to_file": false,
   "experiment_summaries_interval": 3,
   "flush_summaries_interval": 30,
   "stats_avg": 100,
@@ -120,10 +120,11 @@
   "pbt_target_objective": "true_objective",
   "pbt_perturb_min": 1.1,
   "pbt_perturb_max": 1.5,
-  "command_line": "--env panda_reach",
+  "command_line": "--env=panda_reach --log_to_file=false",
   "cli_args": {
-    "env": "panda_reach"
+    "env": "panda_reach",
+    "log_to_file": false
   },
-  "git_hash": "b3688584a1388360b2607737b181f5023ee38128",
+  "git_hash": "fd1e2d80e45580da1a34331be0952aca4f91960c",
   "git_repo_name": "https://github.com/marktrovinger/panda-gym-jenga.git"
 }
