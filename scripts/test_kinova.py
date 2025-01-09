@@ -14,7 +14,7 @@ def main():
         robot.set_action(np.array([1.0, 1.0, 1.0, 1.0]))
         #image = sim.render()
         sim.step()
-        i = input("Press enter to end simulation.")
+        #i = input("Press enter to end simulation.")
         #image = sim.render()
         #plt.imshow(image)
 

@@ -18,6 +18,6 @@ for task in ["Stack3", "PickAndPlace", "PickAndPlaceDeterministic" "SimplePickAn
                 id=env_id,
                 entry_point=f"panda_gym_jenga.envs:Jenga{task}Env",
                 kwargs={"reward_type": reward_type, "control_type": control_type},
-                max_episode_steps=500 if task == "Stack3" or task == "TowerDeterministic" or task == "Tower3Deterministic" else 50,
+                max_episode_steps=500 if task == "Stack3" or task == "Tower" or task == "TowerDeterministic" or task == "Tower3Deterministic" else 50,
             )
             ENV_IDS.append(env_id)
