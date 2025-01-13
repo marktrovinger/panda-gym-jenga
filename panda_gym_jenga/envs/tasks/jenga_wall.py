@@ -34,6 +34,7 @@ class JengaWall3(Task):
         self.obj_range_high = np.array([obj_xy_range / 2, obj_xy_range / 2, 0])
         with self.sim.no_rendering():
             self._create_scene()
+        self.num_components = 8
 
     def _create_scene(self) -> None:
         self.sim.create_plane(z_offset=-0.4)
@@ -128,6 +129,36 @@ class JengaWall3(Task):
             position=np.array([-self.extents_base[1] / 2, 0.0, self.extents_base[2] / 2]),
             rgba_color=np.array([0.25, 0.1, 0.9, 0.3]),
         )
+        self.sim.create_box(
+            body_name="block7",
+            half_extents=self.extents_base / 2,
+            mass=2.0,
+            position=np.array([1.0, 1.0, 0.0]),
+            rgba_color=np.array([0.25, 0.1, 0.9, 1.0]),
+        )
+        self.sim.create_box(
+            body_name="target7",
+            half_extents=self.extents_base / 2,
+            mass=0.0,
+            ghost=True,
+            position=np.array([-self.extents_base[1] / 2, 0.0, self.extents_base[2] / 2]),
+            rgba_color=np.array([0.25, 0.1, 0.9, 0.3]),
+        )
+        self.sim.create_box(
+            body_name="block8",
+            half_extents=self.extents_base / 2,
+            mass=2.0,
+            position=np.array([1.0, 1.0, 0.0]),
+            rgba_color=np.array([0.25, 0.1, 0.9, 1.0]),
+        )
+        self.sim.create_box(
+            body_name="target8",
+            half_extents=self.extents_base / 2,
+            mass=0.0,
+            ghost=True,
+            position=np.array([-self.extents_base[1] / 2, 0.0, self.extents_base[2] / 2]),
+            rgba_color=np.array([0.25, 0.1, 0.9, 0.3]),
+        )
 
     def get_obs(self) -> np.ndarray:
         # position, rotation of the block
@@ -150,12 +181,19 @@ class JengaWall3(Task):
         object5_position = np.array(self.sim.get_base_position("block5"))
         object5_rotation = np.array(self.sim.get_base_rotation("block5"))
         object5_velocity = np.array(self.sim.get_base_velocity("block5"))
-        object5_angular_velocity = np.array(self.sim.get_base_angular_velocity("block6"))
+        object5_angular_velocity = np.array(self.sim.get_base_angular_velocity("block5"))
         object6_position = np.array(self.sim.get_base_position("block6"))
         object6_rotation = np.array(self.sim.get_base_rotation("block6"))
         object6_velocity = np.array(self.sim.get_base_velocity("block6"))
         object6_angular_velocity = np.array(self.sim.get_base_angular_velocity("block6"))
-        
+        object7_position = np.array(self.sim.get_base_position("block7"))
+        object7_rotation = np.array(self.sim.get_base_rotation("block7"))
+        object7_velocity = np.array(self.sim.get_base_velocity("block7"))
+        object7_angular_velocity = np.array(self.sim.get_base_angular_velocity("block7"))
+        object8_position = np.array(self.sim.get_base_position("block8"))
+        object8_rotation = np.array(self.sim.get_base_rotation("block8"))
+        object8_velocity = np.array(self.sim.get_base_velocity("block8"))
+        object8_angular_velocity = np.array(self.sim.get_base_angular_velocity("block8"))
 
         observation = np.concatenate(
             [
@@ -183,6 +221,14 @@ class JengaWall3(Task):
                 object6_rotation,
                 object6_velocity,
                 object6_angular_velocity,
+                object7_position,
+                object7_rotation,
+                object7_velocity,
+                object7_angular_velocity,
+                object8_position,
+                object8_rotation,
+                object8_velocity,
+                object8_angular_velocity,
             
             ]
         )
@@ -195,44 +241,55 @@ class JengaWall3(Task):
         object4_position = self.sim.get_base_position("block4")
         object5_position = self.sim.get_base_position("block5")
         object6_position = self.sim.get_base_position("block6")
-        achieved_goal = np.concatenate((object1_position, object2_position, object3_position, object4_position, object5_position, object6_position))
+        object7_position = self.sim.get_base_position("block7")
+        object8_position = self.sim.get_base_position("block8")
+        achieved_goal = np.concatenate((object1_position, object2_position, object3_position, object4_position, object5_position, object6_position, object7_position, object8_position))
         return achieved_goal
 
     def reset(self) -> None:
         self.goal = self._sample_goal()
-        object1_position, object2_position, object3_position, object4_position, object5_position, object6_position = self._sample_objects()
-        self.sim.set_base_pose("target1", self.goal[:3], np.array([0.0, 0.0, 0.0, 1.0]))
-        self.sim.set_base_pose("target2", self.goal[3:6], np.array([0.0, 0.0, 0.0, 1.0]))
-        self.sim.set_base_pose("block1", object1_position, np.array([0.0, 0.0, 0.0, 1.0]))
-        self.sim.set_base_pose("block2", object2_position, np.array([0.0, 0.0, 0.0, 1.0]))
+        object1_position, object2_position, object3_position, object4_position, object5_position, object6_position, object7_position, object8_position = self._sample_objects()
+        self.sim.set_base_pose("target1", self.goal[:3], np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("target2", self.goal[3:6], np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("block1", object1_position, np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("block2", object2_position, np.array([0.0, 0.0, 1.0, 1.0]))
         self.sim.set_base_pose("target3", self.goal[6:9], np.array([0.0, 0.0, 1.0, 1.0]))
         self.sim.set_base_pose("target4", self.goal[9:12], np.array([0.0, 0.0, 1.0, 1.0]))
         self.sim.set_base_pose("block3", object3_position, np.array([0.0, 0.0, 1.0, 1.0]))
         self.sim.set_base_pose("block4", object4_position, np.array([0.0, 0.0, 1.0, 1.0]))
-        self.sim.set_base_pose("target5", self.goal[12:15], np.array([0.0, 0.0, 0.0, 1.0]))
-        self.sim.set_base_pose("target6", self.goal[15:], np.array([0.0, 0.0, 0.0, 1.0]))
-        self.sim.set_base_pose("block5", object5_position, np.array([0.0, 0.0, 0.0, 1.0]))
-        self.sim.set_base_pose("block6", object6_position, np.array([0.0, 0.0, 0.0, 1.0]))
+        self.sim.set_base_pose("target5", self.goal[12:15], np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("target6", self.goal[15:18], np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("block5", object5_position, np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("block6", object6_position, np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("target7", self.goal[18:21], np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("target8", self.goal[21:], np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("block7", object7_position, np.array([0.0, 0.0, 1.0, 1.0]))
+        self.sim.set_base_pose("block8", object8_position, np.array([0.0, 0.0, 1.0, 1.0]))
         
 
     def _sample_goal(self) -> np.ndarray:
+        # TODO: change to reflect the wall shape
         goal1 = np.array([0.0, self.extents_base[1] - 0.01, self.extents_base[2] / 2])  # z offset for the cube center
-        goal2 = np.array([0.0, -self.extents_base[1] + 0.01, self.extents_base[2] / 2])  # z offset for the cube center
-        goal3 = np.array([self.extents_base[1] - 0.05, 0.0,  3 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal2 = np.array([0.0, 0.0, self.extents_base[2] / 2])  # z offset for the cube center
+        goal3 = np.array([0.0, -self.extents_base[1] + 0.01,  3 * self.extents_base[2] / 2])  # z offset for the cube center
         goal4 = np.array([-self.extents_base[1] + 0.05, 0.0, 3 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal5 = np.array([0.0, self.extents_base[1] - 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal5 = np.array([0.0, self.extents_base[1] - 0.01, 3 * self.extents_base[2] / 2])  # z offset for the cube center
         goal6 = np.array([0.0, -self.extents_base[1] + 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal7 = np.array([0.0, self.extents_base[1] - 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal8 = np.array([0.0, -self.extents_base[1] + 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
 
-        return np.concatenate((goal1, goal2, goal3, goal4, goal5, goal6))
+        return np.concatenate((goal1, goal2, goal3, goal4, goal5, goal6, goal7, goal8))
 
     def _sample_objects(self) -> Tuple[np.ndarray, np.ndarray]:
         # while True:  # make sure that cubes are distant enough
-        object1_position = np.array([0.0, 0.0, self.extents_base[2] / 2])
-        object2_position = np.array([0.0, -0.1, self.extents_base[2] / 2])
-        object3_position = np.array([0.1, -0.1, self.extents_base[2] / 2])
-        object4_position = np.array([-0.1, 0.1, self.extents_base[2] / 2])
+        object1_position = np.array([-0.1, 0.1, self.extents_base[2] / 2])
+        object2_position = np.array([-0.1, 0.0, self.extents_base[2] / 2])
+        object3_position = np.array([-0.1, -0.1, self.extents_base[2] / 2])
+        object4_position = np.array([-0.2, 0.1, self.extents_base[2] / 2])
         object5_position = np.array([-0.2, -0.1, self.extents_base[2] / 2])
-        object6_position = np.array([-0.2, 0.1, self.extents_base[2] / 2])
+        object6_position = np.array([-0.3, 0.15, self.extents_base[2] / 2])
+        object7_position = np.array([-0.3, 0.0, self.extents_base[2] / 2])
+        object8_position = np.array([-0.3, 0.15, self.extents_base[2] / 2])
         if not self.deterministic:
             noise1 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
             noise2 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
@@ -246,8 +303,12 @@ class JengaWall3(Task):
             noise6 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
             object5_position += noise5
             object6_position += noise6
+            noise7 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+            noise8 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
+            object7_position += noise7
+            object8_position += noise8
         # if distance(object1_position, object2_position) > 0.1:
-        return object1_position, object2_position, object3_position, object4_position, object5_position, object6_position
+        return object1_position, object2_position, object3_position, object4_position, object5_position, object6_position, object7_position, object8_position
 
     def is_success(self, achieved_goal: np.ndarray, desired_goal: np.ndarray, info: Dict[str, Any] = {}) -> np.ndarray:
         # must be vectorized !!
