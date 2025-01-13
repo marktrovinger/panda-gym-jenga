@@ -126,8 +126,8 @@ class JengaWall3DeterministicEnv(RobotTaskEnv):
     def _objective_map(self):
         observation = self._get_obs()
         #object_coords = []
-        for i in range(6):
-            if i < 5:
+        for i in range(8):
+            if i < 7:
                 # first 3 coords
                 if i > 0:
                     self.objective_coords.append(observation["desired_goal"][i*3:(i*3)+3])
@@ -135,13 +135,13 @@ class JengaWall3DeterministicEnv(RobotTaskEnv):
                     self.objective_coords.append(observation["desired_goal"][i*3:(i+3)])
             else:
                 # last object
-                self.objective_coords.append(observation["desired_goal"][15:])
+                self.objective_coords.append(observation["desired_goal"][21:])
 
     def _object_map(self):
         observation = self._get_obs()
         #object_coords = []
-        for i in range(6):
-            if i < 5:
+        for i in range(8):
+            if i < 7:
                 # first 3 coords
                 if i > 0:
                     self.object_coords.append(observation["achieved_goal"][i*3:(i*3)+3])
@@ -149,7 +149,7 @@ class JengaWall3DeterministicEnv(RobotTaskEnv):
                     self.object_coords.append(observation["achieved_goal"][i*3:(i+3)])
             else:
                 # last object
-                self.object_coords.append(observation["achieved_goal"][15:])
+                self.object_coords.append(observation["achieved_goal"][21:])
     def _robot_action(self, action):
         # move to object
         observation = self._get_obs()

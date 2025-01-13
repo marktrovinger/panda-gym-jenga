@@ -12,7 +12,7 @@ class JengaWall3(Task):
         self,
         sim,
         reward_type="sparse",
-        distance_threshold=0.1,
+        distance_threshold=0.085,
         goal_xy_range=0.3,
         obj_xy_range=0.4,
         object_size="large",
@@ -269,14 +269,14 @@ class JengaWall3(Task):
 
     def _sample_goal(self) -> np.ndarray:
         # TODO: change to reflect the wall shape
-        goal1 = np.array([0.0, self.extents_base[1] - 0.01, self.extents_base[2] / 2])  # z offset for the cube center
+        goal1 = np.array([0.0, 0.09, self.extents_base[2] / 2])  # z offset for the cube center
         goal2 = np.array([0.0, 0.0, self.extents_base[2] / 2])  # z offset for the cube center
-        goal3 = np.array([0.0, -self.extents_base[1] + 0.01,  3 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal4 = np.array([-self.extents_base[1] + 0.05, 0.0, 3 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal5 = np.array([0.0, self.extents_base[1] - 0.01, 3 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal6 = np.array([0.0, -self.extents_base[1] + 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal7 = np.array([0.0, 0.0, 6 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal8 = np.array([0.0, -self.extents_base[1] + 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal3 = np.array([0.0, -0.085, self.extents_base[2] / 2])  # z offset for the cube center
+        goal4 = np.array([0.0, 0.045, 3 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal5 = np.array([0.0, -0.045, 3 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal6 = np.array([0.0, 0.06, 6 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal7 = np.array([0.0, -0.02, 6 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal8 = np.array([0.0, -0.09, 6 * self.extents_base[2] / 2])  # z offset for the cube center
 
         return np.concatenate((goal1, goal2, goal3, goal4, goal5, goal6, goal7, goal8))
 
@@ -287,7 +287,7 @@ class JengaWall3(Task):
         object3_position = np.array([-0.1, -0.1, self.extents_base[2] / 2])
         object4_position = np.array([-0.2, 0.1, self.extents_base[2] / 2])
         object5_position = np.array([-0.2, -0.1, self.extents_base[2] / 2])
-        object6_position = np.array([-0.3, 0.15, self.extents_base[2] / 2])
+        object6_position = np.array([-0.3, -0.15, self.extents_base[2] / 2])
         object7_position = np.array([-0.3, 0.0, self.extents_base[2] / 2])
         object8_position = np.array([-0.3, 0.15, self.extents_base[2] / 2])
         if not self.deterministic:
