@@ -275,7 +275,7 @@ class JengaWall3(Task):
         goal4 = np.array([-self.extents_base[1] + 0.05, 0.0, 3 * self.extents_base[2] / 2])  # z offset for the cube center
         goal5 = np.array([0.0, self.extents_base[1] - 0.01, 3 * self.extents_base[2] / 2])  # z offset for the cube center
         goal6 = np.array([0.0, -self.extents_base[1] + 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
-        goal7 = np.array([0.0, self.extents_base[1] - 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
+        goal7 = np.array([0.0, 0.0, 6 * self.extents_base[2] / 2])  # z offset for the cube center
         goal8 = np.array([0.0, -self.extents_base[1] + 0.01, 6 * self.extents_base[2] / 2])  # z offset for the cube center
 
         return np.concatenate((goal1, goal2, goal3, goal4, goal5, goal6, goal7, goal8))

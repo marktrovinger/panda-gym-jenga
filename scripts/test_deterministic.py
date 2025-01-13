@@ -6,7 +6,7 @@ import time
 
 
 def main():
-    env = gym.make("JengaPickAndPlaceDeterministic-v3", render_mode = "human")
+    env = gym.make("JengaWall3Deterministic-v3", render_mode = "human")
     #env = gym.make("JengaTower3Deterministic-v3", render_mode = "human", deterministic=True)
     #env = RecordVideo(env, video_folder="deterministic_testing", name_prefix="testing", episode_trigger=lambda x: True)
     
