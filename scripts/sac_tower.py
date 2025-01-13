@@ -46,7 +46,12 @@ def main():
         goal_selection_strategy=goal_selection_strategy,
         ),
         verbose=1, 
-        tensorboard_log=f"runs/{run.id}"
+        tensorboard_log=f"runs/{run.id}",
+        policy_kwargs={
+            "net_arch":[256, 256, 256],
+            "learning_rate": 0.01,
+        },
+        ent_coef=0.2
     )
     
     model.learn(

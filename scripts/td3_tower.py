@@ -1,4 +1,5 @@
-from stable_baselines3 import DDPG, HerReplayBuffer
+
+from stable_baselines3 import DDPG, HerReplayBuffer, SAC, TD3
 from stable_baselines3.her.goal_selection_strategy import GoalSelectionStrategy
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.vec_env import DummyVecEnv, VecVideoRecorder
@@ -10,7 +11,7 @@ from wandb.integration.sb3 import WandbCallback
 config = {
         "policy_type": "MultiInputPolicy",
         "total_timesteps": 1e7,
-        "env_name": "JengaTower-v3",
+        "env_name": "JengaTower3-v3",
     }
 def make_env():
     env = make_vec_env(config["env_name"], n_envs=64)
@@ -35,22 +36,21 @@ def main():
         record_video_trigger=lambda x: x % 200000 == 0,
         video_length=200,
     )
-    model = DDPG(
+    model = TD3(
         config["policy_type"], 
         env=env,
         learning_starts=1000,
-        tau=0.95,
         replay_buffer_class=HerReplayBuffer,
         replay_buffer_kwargs=dict(
         n_sampled_goal=4,
         goal_selection_strategy=goal_selection_strategy,
         ),
         verbose=1, 
+        tensorboard_log=f"runs/{run.id}",
         policy_kwargs={
             "net_arch":[256, 256, 256],
             "learning_rate": 0.01,
-        }
-        tensorboard_log=f"runs/{run.id}"
+        },
     )
     
     model.learn(

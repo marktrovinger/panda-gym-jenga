@@ -6,8 +6,8 @@ import time
 
 
 def main():
-    #env = gym.make("JengaSimplePickAndPlaceDeterministicEnv-v3", render_mode = "human")
-    env = gym.make("JengaTower3Deterministic-v3", render_mode = "human", deterministic=True)
+    env = gym.make("JengaPickAndPlaceDeterministic-v3", render_mode = "human")
+    #env = gym.make("JengaTower3Deterministic-v3", render_mode = "human", deterministic=True)
     #env = RecordVideo(env, video_folder="deterministic_testing", name_prefix="testing", episode_trigger=lambda x: True)
     
     obs, done = env.reset()
@@ -15,7 +15,7 @@ def main():
     #env.action_space = Discrete(4)
     time = 0
     total_steps = 0
-    for i in range(6):
+    for i in range(2):
         steps_taken = 0
         obs, reward, terminated, truncated, info = env.step(0)
         steps_taken = info["time_taken"]
