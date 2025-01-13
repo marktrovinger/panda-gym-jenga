@@ -2,7 +2,7 @@
 from stable_baselines3 import DDPG, HerReplayBuffer, SAC
 from stable_baselines3.her.goal_selection_strategy import GoalSelectionStrategy
 from stable_baselines3.common.monitor import Monitor
-from stable_baselines3.common.vec_env import DummyVecEnv, VecVideoRecorder
+from stable_baselines3.common.vec_env import DummyVecEnv, VecVideoRecorder, SubprocVecEnv
 from stable_baselines3.common.env_util import make_vec_env
 import gymnasium as gym
 import panda_gym_jenga
@@ -14,7 +14,7 @@ config = {
         "env_name": "JengaTower3-v3",
     }
 def make_env():
-    env = make_vec_env(config["env_name"], n_envs=64)
+    env = make_vec_env(config["env_name"], n_envs=80, vec_env_cls=SubprocVecEnv)
     #env = Monitor(env)  # record stats such as returns
     return env
 
@@ -43,13 +43,13 @@ def main():
         replay_buffer_class=HerReplayBuffer,
         replay_buffer_kwargs=dict(
         n_sampled_goal=4,
+        train_freq=1000,
         goal_selection_strategy=goal_selection_strategy,
         ),
         verbose=1, 
         tensorboard_log=f"runs/{run.id}",
         policy_kwargs={
             "net_arch":[256, 256, 256],
-            "learning_rate": 0.01,
         },
         ent_coef=0.2
     )

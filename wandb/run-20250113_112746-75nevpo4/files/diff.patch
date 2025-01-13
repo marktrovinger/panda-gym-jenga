@@ -1,0 +1,176 @@
+diff --git a/panda_gym_jenga.egg-info/SOURCES.txt b/panda_gym_jenga.egg-info/SOURCES.txt
+index b74e0f0..05c72d5 100644
+--- a/panda_gym_jenga.egg-info/SOURCES.txt
++++ b/panda_gym_jenga.egg-info/SOURCES.txt
+@@ -14,10 +14,17 @@ panda_gym_jenga/envs/robot/kinova.py
+ panda_gym_jenga/envs/tasks/__init__.py
+ panda_gym_jenga/envs/tasks/jenga_tower.py
+ panda_gym_jenga/envs/tasks/jenga_tower3.py
++panda_gym_jenga/envs/tasks/jenga_wall.py
+ panda_gym_jenga/envs/tasks/jengapickandplace.py
+ panda_gym_jenga/envs/tasks/simplejengapickandplace.py
+ panda_gym_jenga/envs/tasks/stack3.py
+ panda_gym_jenga/envs/tasks/stack_jenga.py
+ panda_gym_jenga/envs/tasks/test_stack3.py
+ panda_gym_jenga/envs/tasks/test_stack3_env.py
+-panda_gym_jenga/envs/tasks/wallbuilding.py
+\ No newline at end of file
++panda_gym_jenga/envs/tasks/wallbuilding.py
++sf/__init__.py
++sf/panda_all_envs.py
++sf/panda_params.py
++sf/panda_utils.py
++sf/train_panda.py
++sf/train_panda_jenga.py
+\ No newline at end of file
+diff --git a/panda_gym_jenga.egg-info/top_level.txt b/panda_gym_jenga.egg-info/top_level.txt
+index eca03ee..0602830 100644
+--- a/panda_gym_jenga.egg-info/top_level.txt
++++ b/panda_gym_jenga.egg-info/top_level.txt
+@@ -1 +1,2 @@
+ panda_gym_jenga
++sf
+diff --git a/panda_gym_jenga/__init__.py b/panda_gym_jenga/__init__.py
+index 26580ac..d28376e 100644
+--- a/panda_gym_jenga/__init__.py
++++ b/panda_gym_jenga/__init__.py
+@@ -18,6 +18,6 @@ for task in ["Stack3", "PickAndPlace", "PickAndPlaceDeterministic" "SimplePickAn
+                 id=env_id,
+                 entry_point=f"panda_gym_jenga.envs:Jenga{task}Env",
+                 kwargs={"reward_type": reward_type, "control_type": control_type},
+-                max_episode_steps=350 if task == "Stack3" or "Tower" in task or "Wall" in task else 50,
++                max_episode_steps=350 if task == "Stack3" or task == "Tower3" or task == "Wall" else 50,
+             )
+             ENV_IDS.append(env_id)
+diff --git a/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc b/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc
+index 7c1114c..1e391ef 100644
+Binary files a/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc and b/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc differ
+diff --git a/panda_gym_jenga/envs/tasks/jengapickandplace.py b/panda_gym_jenga/envs/tasks/jengapickandplace.py
+index 33d84bc..380bd41 100644
+--- a/panda_gym_jenga/envs/tasks/jengapickandplace.py
++++ b/panda_gym_jenga/envs/tasks/jengapickandplace.py
+@@ -23,7 +23,7 @@ class JengaPickAndPlace(Task):
+         self.object_size = object_size
+         if self.object_size == "large":
+             #self.extents = np.array([0.0381, 0.12065, 0.0254])
+-            self.extents = np.array([0.12065, 0.0381, 0.0254])
++            self.extents = np.array([0.060, 0.025, 0.015])
+         else:
+             pass
+         #self.np_random = Task.
+diff --git a/scripts/ddpg_tower.py b/scripts/ddpg_tower.py
+index 15b7a2f..5fd4ff7 100644
+--- a/scripts/ddpg_tower.py
++++ b/scripts/ddpg_tower.py
+@@ -1,7 +1,7 @@
+ from stable_baselines3 import DDPG, HerReplayBuffer
+ from stable_baselines3.her.goal_selection_strategy import GoalSelectionStrategy
+-from stable_baselines3.common.monitor import Monitor
+-from stable_baselines3.common.vec_env import DummyVecEnv, VecVideoRecorder
++#from stable_baselines3.common.monitor import Monitor
++from stable_baselines3.common.vec_env import VecVideoRecorder, SubprocVecEnv
+ from stable_baselines3.common.env_util import make_vec_env
+ import gymnasium as gym
+ import panda_gym_jenga
+@@ -13,7 +13,7 @@ config = {
+         "env_name": "JengaTower-v3",
+     }
+ def make_env():
+-    env = make_vec_env(config["env_name"], n_envs=64)
++    env = make_vec_env(config["env_name"], n_envs=80, vec_env_cls=SubprocVecEnv)
+     #env = Monitor(env)  # record stats such as returns
+     return env
+ 
+@@ -40,16 +40,16 @@ def main():
+         env=env,
+         learning_starts=1000,
+         tau=0.95,
++        train_freq=1000,
+         replay_buffer_class=HerReplayBuffer,
+         replay_buffer_kwargs=dict(
+-        n_sampled_goal=4,
+-        goal_selection_strategy=goal_selection_strategy,
++            n_sampled_goal=4,
++            goal_selection_strategy=goal_selection_strategy,
+         ),
+         verbose=1, 
+-        policy_kwargs={
++        policy_kwargs= {
+             "net_arch":[256, 256, 256],
+-            "learning_rate": 0.01,
+-        }
++        },
+         tensorboard_log=f"runs/{run.id}"
+     )
+     
+diff --git a/scripts/sac_jenga_panp.py b/scripts/sac_jenga_panp.py
+index f1b35cb..15ab28d 100644
+--- a/scripts/sac_jenga_panp.py
++++ b/scripts/sac_jenga_panp.py
+@@ -1,7 +1,7 @@
+ from stable_baselines3 import DDPG, HerReplayBuffer, SAC
+ from stable_baselines3.her.goal_selection_strategy import GoalSelectionStrategy
+-from stable_baselines3.common.monitor import Monitor
+-from stable_baselines3.common.vec_env import DummyVecEnv, VecVideoRecorder
++#from stable_baselines3.common.monitor import Monitor
++from stable_baselines3.common.vec_env import VecVideoRecorder
+ from stable_baselines3.common.env_util import make_vec_env
+ import gymnasium as gym
+ import panda_gym_jenga
+@@ -9,11 +9,11 @@ import wandb
+ from wandb.integration.sb3 import WandbCallback
+ config = {
+         "policy_type": "MultiInputPolicy",
+-        "total_timesteps": 1e8,
+-        "env_name": "JengaSimplePickAndPlace-v3",
++        "total_timesteps": 1e7,
++        "env_name": "JengaPickAndPlace-v3",
+     }
+ def make_env():
+-    env = make_vec_env(config["env_name"], n_envs=64)
++    env = make_vec_env(config["env_name"], n_envs=80)
+     #env = Monitor(env)  # record stats such as returns
+     return env
+ 
+@@ -21,7 +21,7 @@ def main():
+     goal_selection_strategy = "future"
+ 
+     run = wandb.init(
+-        project="parameter_testing",
++        project="sac_testing",
+         config=config,
+         sync_tensorboard=True,
+         monitor_gym=True,
+diff --git a/scripts/sac_tower.py b/scripts/sac_tower.py
+index 7cdce29..b510302 100644
+--- a/scripts/sac_tower.py
++++ b/scripts/sac_tower.py
+@@ -49,7 +49,6 @@ def main():
+         tensorboard_log=f"runs/{run.id}",
+         policy_kwargs={
+             "net_arch":[256, 256, 256],
+-            "learning_rate": 0.01,
+         },
+         ent_coef=0.2
+     )
+diff --git a/scripts/td3_tower.py b/scripts/td3_tower.py
+index c888fc8..a88e754 100644
+--- a/scripts/td3_tower.py
++++ b/scripts/td3_tower.py
+@@ -49,7 +49,6 @@ def main():
+         tensorboard_log=f"runs/{run.id}",
+         policy_kwargs={
+             "net_arch":[256, 256, 256],
+-            "learning_rate": 0.01,
+         },
+     )
+     
+diff --git a/wandb/latest-run b/wandb/latest-run
+index 07c69d6..4d63a02 120000
+--- a/wandb/latest-run
++++ b/wandb/latest-run
+@@ -1 +1 @@
+-run-20250101_135257-4inctcpa
+\ No newline at end of file
++run-20250113_112746-75nevpo4
+\ No newline at end of file

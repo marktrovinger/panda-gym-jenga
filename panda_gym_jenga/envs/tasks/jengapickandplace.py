@@ -23,7 +23,7 @@ class JengaPickAndPlace(Task):
         self.object_size = object_size
         if self.object_size == "large":
             #self.extents = np.array([0.0381, 0.12065, 0.0254])
-            self.extents = np.array([0.12065, 0.0381, 0.0254])
+            self.extents = np.array([0.060, 0.025, 0.015])
         else:
             pass
         #self.np_random = Task.

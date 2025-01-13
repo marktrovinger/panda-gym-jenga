@@ -1,0 +1,58 @@
+diff --git a/panda_gym_jenga/envs/tasks/jengapickandplace.py b/panda_gym_jenga/envs/tasks/jengapickandplace.py
+index 33d84bc..380bd41 100644
+--- a/panda_gym_jenga/envs/tasks/jengapickandplace.py
++++ b/panda_gym_jenga/envs/tasks/jengapickandplace.py
+@@ -23,7 +23,7 @@ class JengaPickAndPlace(Task):
+         self.object_size = object_size
+         if self.object_size == "large":
+             #self.extents = np.array([0.0381, 0.12065, 0.0254])
+-            self.extents = np.array([0.12065, 0.0381, 0.0254])
++            self.extents = np.array([0.060, 0.025, 0.015])
+         else:
+             pass
+         #self.np_random = Task.
+diff --git a/scripts/sac_jenga_panp.py b/scripts/sac_jenga_panp.py
+index f1b35cb..7de78d8 100644
+--- a/scripts/sac_jenga_panp.py
++++ b/scripts/sac_jenga_panp.py
+@@ -1,7 +1,7 @@
+ from stable_baselines3 import DDPG, HerReplayBuffer, SAC
+ from stable_baselines3.her.goal_selection_strategy import GoalSelectionStrategy
+-from stable_baselines3.common.monitor import Monitor
+-from stable_baselines3.common.vec_env import DummyVecEnv, VecVideoRecorder
++#from stable_baselines3.common.monitor import Monitor
++from stable_baselines3.common.vec_env import VecVideoRecorder
+ from stable_baselines3.common.env_util import make_vec_env
+ import gymnasium as gym
+ import panda_gym_jenga
+@@ -10,10 +10,10 @@ from wandb.integration.sb3 import WandbCallback
+ config = {
+         "policy_type": "MultiInputPolicy",
+         "total_timesteps": 1e8,
+-        "env_name": "JengaSimplePickAndPlace-v3",
++        "env_name": "JengaPickAndPlace-v3",
+     }
+ def make_env():
+-    env = make_vec_env(config["env_name"], n_envs=64)
++    env = make_vec_env(config["env_name"], n_envs=80)
+     #env = Monitor(env)  # record stats such as returns
+     return env
+ 
+@@ -21,7 +21,7 @@ def main():
+     goal_selection_strategy = "future"
+ 
+     run = wandb.init(
+-        project="parameter_testing",
++        project="sac_testing",
+         config=config,
+         sync_tensorboard=True,
+         monitor_gym=True,
+diff --git a/wandb/latest-run b/wandb/latest-run
+index 07c69d6..4571704 120000
+--- a/wandb/latest-run
++++ b/wandb/latest-run
+@@ -1 +1 @@
+-run-20250101_135257-4inctcpa
+\ No newline at end of file
++run-20250109_142012-26fy91vb
+\ No newline at end of file
