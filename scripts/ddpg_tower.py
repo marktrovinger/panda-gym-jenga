@@ -9,7 +9,7 @@ import wandb
 from wandb.integration.sb3 import WandbCallback
 config = {
         "policy_type": "MultiInputPolicy",
-        "total_timesteps": 1e7,
+        "total_timesteps": 5e7,
         "env_name": "JengaTower-v3",
     }
 def make_env():
