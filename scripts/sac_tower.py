@@ -47,10 +47,10 @@ def main():
         config["policy_type"],
         env=env,
         learning_starts=1000,
+        train_freq=1000,
         replay_buffer_class=HerReplayBuffer,
         replay_buffer_kwargs=dict(
             n_sampled_goal=4,
-            train_freq=1000,
             goal_selection_strategy=goal_selection_strategy,
         ),
         verbose=1,
