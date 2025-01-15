@@ -11,12 +11,12 @@ from wandb.integration.sb3 import WandbCallback
 config = {
     "policy_type": "MultiInputPolicy",
     "total_timesteps": 5e7,
-    "env_name": "JengaTower3-v3",
+    "env_name": "JengaWall3-v3",
 }
 
 
 def make_env():
-    env = make_vec_env(config["env_name"], n_envs=80, vec_env_cls=SubprocVecEnv)
+    env = make_vec_env(config["env_name"], n_envs=16, vec_env_cls=SubprocVecEnv)
     # env = Monitor(env)  # record stats such as returns
     return env
 
