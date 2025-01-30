@@ -323,10 +323,11 @@ class JengaTower3Env(RobotTaskEnv):
         ) -> None:
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
         self.robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
-        task = JengaTower3(sim, reward_type=reward_type, object_size=object_size)
+        self.task = JengaTower3(sim, reward_type=reward_type, object_size=object_size)
+        self.observation = self._get_obs()
         super().__init__(
             self.robot, 
-            task, 
+            self.task, 
             render_width, 
             render_height, 
             render_target_position, 
@@ -536,16 +537,17 @@ class JengaTower3DeterministicEnv(RobotTaskEnv):
         ) -> None:
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
         #robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
-        robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
-        task = JengaTower3(sim, reward_type=reward_type, object_size=object_size, deterministic=deterministic, distance_threshold=0.07)
+        self.robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
+        self.task = JengaTower3(sim, reward_type=reward_type, object_size=object_size, deterministic=deterministic, distance_threshold=0.07)
         self.higher_z = False
         self.object_counter = 0
         self.is_action_completed = False
         self.object_coords = []
         self.objective_coords = []
+        self.observation = None
         super().__init__(
-            robot, 
-            task, 
+            self.robot, 
+            self.task, 
             render_width, 
             render_height, 
             render_target_position, 

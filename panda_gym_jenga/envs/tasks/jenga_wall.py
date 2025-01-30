@@ -35,6 +35,7 @@ class JengaWall3(Task):
         with self.sim.no_rendering():
             self._create_scene()
         self.num_components = 8
+        self.observation = self._get_obs()
 
     def _create_scene(self) -> None:
         self.sim.create_plane(z_offset=-0.4)

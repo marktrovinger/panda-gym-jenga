@@ -4,19 +4,19 @@ import panda_gym_jenga
 import time
 
 
-
 def main():
-    env = gym.make("JengaWall3Deterministic-v3", render_mode = "human", deterministic=True)
-    #env = gym.make("JengaTower3Deterministic-v3", render_mode = "human", deterministic=True)
-    #env = RecordVideo(env, video_folder="deterministic_testing", name_prefix="testing", episode_trigger=lambda x: True)
-    
+    # env = gym.make("JengaWall3Deterministic-v3", render_mode = "human", deterministic=True)
+    env = gym.make(
+        "JengaTower3Deterministic-v3", render_mode="human", deterministic=True
+    )
+
     obs, done = env.reset()
-    #action_space = env.action_space
-    #env.action_space = Discrete(4)
+    # action_space = env.action_space
+    # env.action_space = Discrete(4)
     time = 0
     total_steps = 0
-    #i = input("Press enter to end simulation.")
-    for i in range(8):
+    # i = input("Press enter to end simulation.")
+    for i in range(6):
         steps_taken = 0
         obs, reward, terminated, truncated, info = env.step(0)
         steps_taken = info["time_taken"]
@@ -39,6 +39,7 @@ def main():
 
     i = input("Press enter to end simulation.")
     env.close()
+
 
 if __name__ == "__main__":
     main()

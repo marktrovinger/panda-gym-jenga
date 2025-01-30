@@ -34,6 +34,8 @@ class JengaTower3(Task):
         self.obj_range_high = np.array([obj_xy_range / 2, obj_xy_range / 2, 0])
         with self.sim.no_rendering():
             self._create_scene()
+        self.num_components = 9
+        #self.observation = self._get_obs()
 
     def _create_scene(self) -> None:
         self.sim.create_plane(z_offset=-0.4)
