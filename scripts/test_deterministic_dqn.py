@@ -2,11 +2,13 @@
 from stable_baselines3 import DQN
 import gymnasium as gym
 from rl_deterministic_actions.wrappers.deterministic_rl import DeterministicRLWrapper
-from gymnasium.spaces import MultiDiscrete
+#from gymnasium.spaces import MultiDiscrete
 import panda_gym_jenga
 import wandb
 import numpy as np
 from wandb.integration.sb3 import WandbCallback
+from rl_deterministic_actions.algorithms.q_learning import QAgent
+
 
 def main():
     env = gym.make(
@@ -14,13 +16,7 @@ def main():
     )
     env = DeterministicRLWrapper(env)
 
-    obs, _ = env.reset()
-    action = np.array([0, 0], dtype=np.int32)
-    action[0] = 0
-    action[1] = 4
-    obs, reward, terminated, truncated, info = env.step(action)
-    action[0] = 1
-    obs, reward, terminated, truncated, info = env.step(action)
+    model = QAgent(state_space = env.observation_space, action_space=env.action_space)
 
 if __name__ == "__main__":
     main()

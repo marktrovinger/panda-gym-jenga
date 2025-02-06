@@ -27,7 +27,7 @@ class DeterministicRLWrapper(Wrapper):
     def _robot_action(self, action):
         # move to object
         
-        current_position = np.round(self.observation_["observation"][0:3], decimals=3)
+        current_position = np.round(self.env.unwrapped._get_obs()["observation"][0:3], decimals=3)
         action, target = action[0], action[1]
 
         # move to the object
@@ -104,7 +104,7 @@ class DeterministicRLWrapper(Wrapper):
                 self.robot.reset()
                 return observation, reward, terminated, truncated, info
             elif self.is_action_completed and goal_action != 1:
-                observation = self._get_obs()
+                observation = self.completed
                 reward = reward * i
                 terminated = True
                 truncated = False
