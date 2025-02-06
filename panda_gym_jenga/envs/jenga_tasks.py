@@ -324,7 +324,7 @@ class JengaTower3Env(RobotTaskEnv):
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
         self.robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
         self.task = JengaTower3(sim, reward_type=reward_type, object_size=object_size)
-        self.observation = self._get_obs()
+        #self.observation = self._get_obs()
         super().__init__(
             self.robot, 
             self.task, 

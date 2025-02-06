@@ -10,19 +10,39 @@ class DeterministicRLObservationWrapper(ObservationWrapper):
 
 class DeterministicRLWrapper(Wrapper):
     def __init__(self, env):
+        super().__init__(env)
         self.env = env
         self.task = self.env.unwrapped.task
         self.robot = self.env.unwrapped.robot
-        self.action_space = Tuple((Discrete(3,), Discrete(self.task.num_components)))
+        self.action_space = MultiDiscrete([3, self.task.num_components])
         self.observation_space = Discrete(self.task.num_components,)
-        self.observation_ = env.unwrapped._get_obs()
-        self.objective_coords = self.env.unwrapped.objective_coords
-        self.object_coords = self.env.unwrapped.object_coords
+        self.objective_coords = []
+        self.object_coords = []
         self.completed = np.zeros(self.task.num_components)
-        super().__init__(env)
+        self._setup()
+
+    def _setup(self):
+        observation = self.env.unwrapped._get_obs()
+        #object_coords = []
+        for i in range(self.task.num_components):
+            if i < self.task.num_components - 1:
+                # first 3 coords
+                if i > 0:
+                    self.objective_coords.append(observation["desired_goal"][i*3:(i*3)+3])
+                    self.object_coords.append(observation["achieved_goal"][i*3:(i*3)+3])
+                else:
+                    self.objective_coords.append(observation["desired_goal"][i*3:(i+3)])
+                    self.object_coords.append(observation["achieved_goal"][i*3:(i+3)])
+            else:
+                # last object
+                self.objective_coords.append(observation["desired_goal"][(self.task.num_components - 1)*3:])
+                self.object_coords.append(observation["achieved_goal"][(self.task.num_components - 1)*3:])
+        
 
     def observation(self, observation: Any) -> np.ndarray:
+        obs = observation
         return self.completed
+    
 
     def _robot_action(self, action):
         # move to object
@@ -71,8 +91,8 @@ class DeterministicRLWrapper(Wrapper):
             self.completed[target] = 1
             return gripper_action
         
-    def reset(self):
-        obs, info = super().reset()
+    def reset(self, seed=42):
+        obs, info = super().reset(seed=seed)
         obs = np.zeros(self.task.num_components)
         info = {
                 "is_success": False,
