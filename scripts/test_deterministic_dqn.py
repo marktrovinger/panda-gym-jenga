@@ -15,8 +15,10 @@ def main():
         "JengaTower3-v3", render_mode="human"
     )
     env = DeterministicRLWrapper(env)
+    #obs, _ = env.reset()
+    #observation, reward, terminated, truncated, info = env.step(action+1)
 
-    model_dqn = PPO(policy="MlpPolicy", env=env)
+    model_dqn = DQN(policy="MlpPolicy", env=env)
     model_dqn.learn(100)
 
     #model = QAgent(state_space = env.observation_space, action_space=env.action_space)

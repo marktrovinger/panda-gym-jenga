@@ -14,12 +14,13 @@ class DeterministicRLWrapper(Wrapper):
         self.env = env
         self.task = self.env.unwrapped.task
         self.robot = self.env.unwrapped.robot
-        self.action_space = MultiDiscrete([3, self.task.num_components])
+        self.action_space = Discrete(self.task.num_components * 4)
         self.observation_space = Discrete(self.task.num_components,)
         self.objective_coords = []
         self.object_coords = []
         self.completed = np.zeros(self.task.num_components)
         self._setup()
+        self.is_action_completed = False
 
     def _setup(self):
         observation = self.env.unwrapped._get_obs()
@@ -99,12 +100,23 @@ class DeterministicRLWrapper(Wrapper):
                 "time_taken": 0
         }
         return obs, info
+    
+    def _action_mapping(self, compressed_action):
+        """ Converts a flat action to a tuple.
+        """
+        object, action = (compressed_action // 4, compressed_action % 4)
+
+        return (action, object)
+
+
 
     def step(self, action):
         """
         """
         self.observation_ = self.env.unwrapped._get_obs()
         reward = -1
+
+        action = self._action_mapping(action)
         
         goal_action = action[0]
         goal_object = action[1]
