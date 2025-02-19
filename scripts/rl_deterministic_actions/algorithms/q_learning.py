@@ -1,4 +1,5 @@
 import numpy as np
+import tqdm
 
 class QAgent():
     def __init__(self, state_space, action_space, epsilon=1.0, epsilon_min=0.01, epsilon_decay=0.999, gamma=0.95, lr=0.08):
@@ -13,14 +14,32 @@ class QAgent():
         #self.replay_buffer = np.zeros([state_space, action_space])
 
     def build_model(self, state_space, action_space):
-        Q = np.zeros([state_space, action_space])
+        Q = np.zeros((state_space, action_space))
         return Q
     
-    def train(self, state, action, reward, state_):
-        self.Q[state, action] = self.Q[state, action] + self.lr * (reward + self.gamma*np.max(self.Q[state_, action]) - self.Q[state, action])
+    def learn(self, env, timesteps, state, action, reward, state_):
+        # TODO: move all training code to here, rename function learn
+        episodes = timesteps / 10
+        for episode in tqdm(range(episodes)):
+            if self.epsilon > self.epsilon_min:
+                self.epsilon *= self.epsilon_decay
+            
+            state, info = env.reset()
+            step = 0
+            terminated = False
+            
+            for step in range(timesteps):
+                action = self.action(state)
 
-        if self.epsilon > self.epsilon_min:
-            self.epsilon *= self.epsilon_decay
+                new_state, reward, terminated, _, info = env.step(action)
+                self.Q[state, action] = self.Q[state, action] + \
+                    self.lr * (reward + self.gamma*np.max(self.Q[state_, action]) 
+                            - self.Q[state, action])
+                if terminated:
+                    break
+                state = new_state
+
+        
 
     def action(self, state):
         Q = self.Q[state, :]

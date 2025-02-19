@@ -19,7 +19,7 @@ def main():
     #observation, reward, terminated, truncated, info = env.step(action+1)
     obs_space = flatten_space(env.observation_space)
     obs_space.shape
-    q = QAgent(flatten_space(env.observation_space).shape[0], flatten_space(env.action_space).shape[0])
+    q = QAgent(env.observation_space.n, env.action_space.n)
 
     for timestep in range(1000):
         action = q.action(obs)

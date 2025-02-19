@@ -15,10 +15,10 @@ class DeterministicRLWrapper(Wrapper):
         self.task = self.env.unwrapped.task
         self.robot = self.env.unwrapped.robot
         self.action_space = Discrete(self.task.num_components * 4)
-        self.observation_space = Discrete(self.task.num_components,)
+        self.observation_space = Discrete(self.task.num_components)
         self.objective_coords = []
         self.object_coords = []
-        self.completed = np.zeros(self.task.num_components)
+        self.completed = np.zeros(self.task.num_components, dtype=np.int8)
         self._setup()
         self.is_action_completed = False
 
@@ -42,7 +42,8 @@ class DeterministicRLWrapper(Wrapper):
 
     def observation(self, observation: Any) -> np.ndarray:
         obs = observation
-        return self.completed
+        int_rep = int(''.join(map(str, self.completed)), 2)
+        return int_rep
     
 
     def _robot_action(self, action):
@@ -94,7 +95,7 @@ class DeterministicRLWrapper(Wrapper):
         
     def reset(self, seed=42):
         obs, info = super().reset(seed=seed)
-        obs = np.zeros(self.task.num_components)
+        obs = self.observation(obs)
         info = {
                 "is_success": False,
                 "time_taken": 0
@@ -125,7 +126,7 @@ class DeterministicRLWrapper(Wrapper):
             # TODO: adjust for tuple structure of action space
             # TODO: adjust for change in observation space
             if self.is_action_completed and goal_action == 1:
-                observation = self.completed
+                observation = self.observation()
                 reward = reward * i
                 terminated = True
                 truncated = False
@@ -136,7 +137,7 @@ class DeterministicRLWrapper(Wrapper):
                 self.robot.reset()
                 return observation, reward, terminated, truncated, info
             elif self.is_action_completed and goal_action != 1:
-                observation = self.completed
+                observation = self.observation()
                 reward = reward * i
                 terminated = True
                 truncated = False
