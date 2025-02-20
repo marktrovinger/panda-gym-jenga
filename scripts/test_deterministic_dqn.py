@@ -15,18 +15,9 @@ def main():
         "JengaTower3-v3", render_mode="human"
     )
     env = DeterministicRLWrapper(env)
-    obs, _ = env.reset()
-    #observation, reward, terminated, truncated, info = env.step(action+1)
-    obs_space = flatten_space(env.observation_space)
-    obs_space.shape
     q = QAgent(env.observation_space.n, env.action_space.n)
 
-    for timestep in range(1000):
-        action = q.action(obs)
-        observation, reward, terminated, truncated, info = env.step(action)
-        print(f"Reward at timestep {timestep}: {reward}")
-        q.train(obs, action, reward, observation)
-        obs = observation
+    q.learn(env, 1000)
 
 
     #model_dqn = DQN(policy="MlpPolicy", env=env)

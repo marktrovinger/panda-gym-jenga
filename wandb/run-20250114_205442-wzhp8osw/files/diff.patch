@@ -1,0 +1,60 @@
+diff --git a/panda_gym_jenga.egg-info/PKG-INFO b/panda_gym_jenga.egg-info/PKG-INFO
+index 02ec8d7..c0e8999 100644
+--- a/panda_gym_jenga.egg-info/PKG-INFO
++++ b/panda_gym_jenga.egg-info/PKG-INFO
+@@ -1,24 +1,19 @@
+ Metadata-Version: 2.1
+-Name: panda_gym_jenga
++Name: panda-gym-jenga
+ Version: 0.0.1
+ Summary: Set of robotic environments based on PyBullet physics engine and gymnasium for Jenga blocks.
+ Home-page: https://github.com/marktrovinger/panda_gym_jenga
+ Author: Mark Trovinger
+ Author-email: mark.trovinger@gmail.com
++License: UNKNOWN
++Platform: UNKNOWN
+ Classifier: License :: OSI Approved :: MIT License
+ Classifier: Programming Language :: Python :: 3.7
+ Classifier: Programming Language :: Python :: 3.8
+ Classifier: Programming Language :: Python :: 3.9
+ Classifier: Programming Language :: Python :: 3.10
+ Description-Content-Type: text/markdown
+-Requires-Dist: gymnasium>=0.26
+-Requires-Dist: pybullet
+-Requires-Dist: numpy<2
+-Requires-Dist: scipy
+ Provides-Extra: develop
+-Requires-Dist: pytest-cov; extra == "develop"
+-Requires-Dist: black; extra == "develop"
+-Requires-Dist: isort; extra == "develop"
+-Requires-Dist: pytype; extra == "develop"
+-Requires-Dist: sphinx; extra == "develop"
+-Requires-Dist: sphinx-rtd-theme; extra == "develop"
++
++UNKNOWN
++
+diff --git a/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc b/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc
+index 7c1114c..558537b 100644
+Binary files a/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc and b/panda_gym_jenga/envs/tasks/__pycache__/stack3.cpython-310.pyc differ
+diff --git a/scripts/td3_tower.py b/scripts/td3_tower.py
+index bc9647a..8edb9fc 100644
+--- a/scripts/td3_tower.py
++++ b/scripts/td3_tower.py
+@@ -16,7 +16,7 @@ config = {
+ 
+ 
+ def make_env():
+-    env = make_vec_env(config["env_name"], n_envs=80, vec_env_cls=SubprocVecEnv)
++    env = make_vec_env(config["env_name"], n_envs=32, vec_env_cls=SubprocVecEnv)
+     # env = Monitor(env)  # record stats such as returns
+     return env
+ 
+diff --git a/wandb/latest-run b/wandb/latest-run
+index 31f6ccf..d600e3b 120000
+--- a/wandb/latest-run
++++ b/wandb/latest-run
+@@ -1 +1 @@
+-run-20250113_123941-zafr3ull
+\ No newline at end of file
++run-20250114_205442-wzhp8osw
+\ No newline at end of file

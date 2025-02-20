@@ -1,0 +1,491 @@
+_current_progress_remaining:
+    value: 1
+_custom_logger:
+    value: "False"
+_episode_num:
+    value: 0
+_episode_storage:
+    value: None
+_last_episode_starts:
+    value: |-
+        [ True  True  True  True  True  True  True  True  True  True  True  True
+          True  True  True  True]
+_last_obs:
+    value: |-
+        OrderedDict([('achieved_goal', array([[ 0.06483655,  0.13848463,  0.0075    , -0.186207  , -0.03632502,
+                 0.0075    , -0.11829703, -0.17841317,  0.0075    , -0.053258  ,
+                 0.22563422,  0.0075    , -0.18948412, -0.06820697,  0.0075    ,
+                -0.48759803, -0.21911082,  0.0075    , -0.31124198,  0.08997603,
+                 0.0075    , -0.15657106,  0.2109582 ,  0.0075    ],
+               [-0.00656678, -0.02431429,  0.0075    ,  0.01071946,  0.01304564,
+                 0.0075    , -0.09710547, -0.26253465,  0.0075    , -0.33883846,
+                 0.20080844,  0.0075    , -0.31845087, -0.00329176,  0.0075    ,
+                -0.46159992, -0.2539988 ,  0.0075    , -0.3018599 , -0.04692735,
+                 0.0075    , -0.20847382,  0.05948929,  0.0075    ],
+               [-0.20258234,  0.25290662,  0.0075    ,  0.01178773,  0.10957909,
+                 0.0075    , -0.21402928, -0.05958127,  0.0075    , -0.39667177,
+                -0.05964563,  0.0075    , -0.39566734, -0.13106808,  0.0075    ,
+                -0.2501331 ,  0.02357178,  0.0075    , -0.31760168,  0.03084456,
+                 0.0075    , -0.3520278 , -0.01844278,  0.0075    ],
+               [-0.15533878,  0.27376738,  0.0075    ,  0.01601396, -0.1999188 ,
+                 0.0075    , -0.20084937, -0.18301196,  0.0075    , -0.17260855,
+                -0.04335   ,  0.0075    , -0.11158988, -0.18474323,  0.0075    ,
+                -0.32534337, -0.23675317,  0.0075    , -0.32310307, -0.05071205,
+                 0.0075    , -0.49990872,  0.06330691,  0.0075    ],
+               [-0.21621518,  0.21715783,  0.0075    , -0.06685694,  0.02418819,
+                 0.0075    , -0.21275048,  0.01852932,  0.0075    , -0.39892662,
+                -0.01465853,  0.0075    , -0.24542645, -0.28704283,  0.0075    ,
+                -0.12583935, -0.25745428,  0.0075    , -0.165187  , -0.07019814,
+                 0.0075    , -0.30105478,  0.16948524,  0.0075    ],
+               [-0.2851643 ,  0.1711888 ,  0.0075    , -0.10150988,  0.00089322,
+                 0.0075    , -0.08635918,  0.0118723 ,  0.0075    , -0.08027774,
+                 0.29223815,  0.0075    , -0.07841474, -0.14185067,  0.0075    ,
+                -0.19304818, -0.13323782,  0.0075    , -0.48281842,  0.13883677,
+                 0.0075    , -0.15911175,  0.05888405,  0.0075    ],
+               [ 0.03321781,  0.20745046,  0.0075    , -0.04367697,  0.15070711,
+                 0.0075    , -0.15030779, -0.0110611 ,  0.0075    , -0.03070421,
+                 0.28499153,  0.0075    , -0.01471024, -0.2303981 ,  0.0075    ,
+                -0.31405768, -0.33385986,  0.0075    , -0.1147498 , -0.16495056,
+                 0.0075    , -0.48659718,  0.18729134,  0.0075    ],
+               [-0.2301914 ,  0.2568268 ,  0.0075    ,  0.06240777, -0.06425012,
+                 0.0075    , -0.09525537,  0.03370667,  0.0075    , -0.25803939,
+                 0.27743813,  0.0075    , -0.09080105, -0.25022128,  0.0075    ,
+                -0.10405166, -0.09210427,  0.0075    , -0.20377456, -0.14671095,
+                 0.0075    , -0.2543294 ,  0.05895732,  0.0075    ],
+               [-0.00801574,  0.05964964,  0.0075    , -0.08365176, -0.05716097,
+                 0.0075    , -0.24371777, -0.09152123,  0.0075    , -0.09665266,
+                 0.16779642,  0.0075    , -0.0135968 , -0.08694171,  0.0075    ,
+                -0.14916626,  0.04393025,  0.0075    , -0.44553974, -0.11055804,
+                 0.0075    , -0.25061604,  0.1742416 ,  0.0075    ],
+               [-0.01787909,  0.11871191,  0.0075    , -0.14761196,  0.14420195,
+                 0.0075    ,  0.05644544, -0.10599506,  0.0075    , -0.05615256,
+                 0.2980348 ,  0.0075    , -0.13221258,  0.06880537,  0.0075    ,
+                -0.32850072, -0.03469372,  0.0075    , -0.4561227 ,  0.02041052,
+                 0.0075    , -0.40195578,  0.13356009,  0.0075    ],
+               [ 0.06888648,  0.16565259,  0.0075    ,  0.02148694, -0.1942646 ,
+                 0.0075    ,  0.07471342, -0.26641074,  0.0075    , -0.32110706,
+                 0.2821776 ,  0.0075    , -0.20905502, -0.16622826,  0.0075    ,
+                -0.3802232 , -0.03386674,  0.0075    , -0.2058068 , -0.0792473 ,
+                 0.0075    , -0.34616554,  0.19352862,  0.0075    ],
+               [ 0.00405967,  0.00256703,  0.0075    , -0.19703105,  0.02533398,
+                 0.0075    , -0.15655696, -0.07718778,  0.0075    , -0.02449354,
+                 0.0582985 ,  0.0075    , -0.28371665, -0.11139609,  0.0075    ,
+                -0.43901423, -0.18208015,  0.0075    , -0.39145648, -0.1722893 ,
+                 0.0075    , -0.39061067,  0.09782144,  0.0075    ],
+               [-0.02131618,  0.13231309,  0.0075    , -0.16482574, -0.18553463,
+                 0.0075    , -0.17642839, -0.04094014,  0.0075    , -0.18545859,
+                 0.22581582,  0.0075    , -0.09278406, -0.1190825 ,  0.0075    ,
+                -0.37940606, -0.00191661,  0.0075    , -0.32963172, -0.17201181,
+                 0.0075    , -0.33250582,  0.17502664,  0.0075    ],
+               [-0.10270008, -0.02925608,  0.0075    , -0.06652123, -0.06862947,
+                 0.0075    , -0.04860776,  0.02063165,  0.0075    , -0.17396049,
+                 0.09612288,  0.0075    , -0.1561399 , -0.16748755,  0.0075    ,
+                -0.48365864, -0.27568495,  0.0075    , -0.25552437,  0.07512783,
+                 0.0075    , -0.46032223,  0.10566974,  0.0075    ],
+               [-0.1993635 ,  0.17935012,  0.0075    , -0.04186587,  0.04304422,
+                 0.0075    , -0.13723594, -0.12186966,  0.0075    , -0.1270251 ,
+                -0.06178683,  0.0075    , -0.1390958 , -0.1083935 ,  0.0075    ,
+                -0.46275592,  0.04109764,  0.0075    , -0.4188572 , -0.02583395,
+                 0.0075    , -0.4472785 ,  0.22248252,  0.0075    ],
+               [-0.03846915, -0.05899023,  0.0075    , -0.2927409 ,  0.1464368 ,
+                 0.0075    , -0.19191726, -0.08270086,  0.0075    , -0.25596043,
+                 0.11927134,  0.0075    , -0.11794248, -0.1236755 ,  0.0075    ,
+                -0.3289275 , -0.04496596,  0.0075    , -0.3937336 ,  0.1640184 ,
+                 0.0075    , -0.12698743,  0.27002168,  0.0075    ]],
+              dtype=float32)), ('desired_goal', array([[ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ],
+               [ 0.    ,  0.09  ,  0.0075,  0.    ,  0.    ,  0.0075,  0.    ,
+                -0.085 ,  0.0075,  0.    ,  0.045 ,  0.0225,  0.    , -0.045 ,
+                 0.0225,  0.    ,  0.06  ,  0.045 ,  0.    , -0.02  ,  0.045 ,
+                 0.    , -0.09  ,  0.045 ]], dtype=float32)), ('observation', array([[ 3.8439669e-02, -2.1944723e-12,  1.9740014e-01, ...,
+                 0.0000000e+00,  0.0000000e+00,  0.0000000e+00],
+               [ 3.8439669e-02, -2.1944723e-12,  1.9740014e-01, ...,
+                 0.0000000e+00,  0.0000000e+00,  0.0000000e+00],
+               [ 3.8439669e-02, -2.1944723e-12,  1.9740014e-01, ...,
+                 0.0000000e+00,  0.0000000e+00,  0.0000000e+00],
+               ...,
+               [ 3.8439669e-02, -2.1944723e-12,  1.9740014e-01, ...,
+                 0.0000000e+00,  0.0000000e+00,  0.0000000e+00],
+               [ 3.8439669e-02, -2.1944723e-12,  1.9740014e-01, ...,
+                 0.0000000e+00,  0.0000000e+00,  0.0000000e+00],
+               [ 3.8439669e-02, -2.1944723e-12,  1.9740014e-01, ...,
+                 0.0000000e+00,  0.0000000e+00,  0.0000000e+00]], dtype=float32))])
+_last_original_obs:
+    value: None
+_logger:
+    value: <stable_baselines3.common.logger.Logger object at 0x761096d5dc30>
+_n_updates:
+    value: 0
+_num_timesteps_at_start:
+    value: 0
+_stats_window_size:
+    value: 100
+_total_timesteps:
+    value: 5e+07
+_vec_normalize_env:
+    value: None
+_wandb:
+    value:
+        cli_version: 0.19.3
+        code_path: code/scripts/td3_tower.py
+        m: []
+        python_version: 3.10.15
+        t:
+            "1":
+                - 1
+                - 55
+            "2":
+                - 1
+                - 55
+            "3":
+                - 1
+                - 14
+                - 16
+                - 22
+                - 23
+                - 35
+                - 55
+            "4": 3.10.15
+            "5": 0.19.3
+            "8":
+                - 5
+            "12": 0.19.3
+            "13": linux-x86_64
+action_noise:
+    value: None
+action_space:
+    value: Box(-1.0, 1.0, (4,), float32)
+actor:
+    value: |-
+        Actor(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (mu): Sequential(
+            (0): Linear(in_features=151, out_features=256, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=256, out_features=256, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=256, out_features=256, bias=True)
+            (5): ReLU()
+            (6): Linear(in_features=256, out_features=4, bias=True)
+            (7): Tanh()
+          )
+        )
+actor_batch_norm_stats:
+    value: '[]'
+actor_batch_norm_stats_target:
+    value: '[]'
+actor_target:
+    value: |-
+        Actor(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (mu): Sequential(
+            (0): Linear(in_features=151, out_features=256, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=256, out_features=256, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=256, out_features=256, bias=True)
+            (5): ReLU()
+            (6): Linear(in_features=256, out_features=4, bias=True)
+            (7): Tanh()
+          )
+        )
+algo:
+    value: TD3
+batch_size:
+    value: 100
+buffer_size:
+    value: 1000000
+critic:
+    value: |-
+        ContinuousCritic(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (qf0): Sequential(
+            (0): Linear(in_features=155, out_features=256, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=256, out_features=256, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=256, out_features=256, bias=True)
+            (5): ReLU()
+            (6): Linear(in_features=256, out_features=1, bias=True)
+          )
+          (qf1): Sequential(
+            (0): Linear(in_features=155, out_features=256, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=256, out_features=256, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=256, out_features=256, bias=True)
+            (5): ReLU()
+            (6): Linear(in_features=256, out_features=1, bias=True)
+          )
+        )
+critic_batch_norm_stats:
+    value: '[]'
+critic_batch_norm_stats_target:
+    value: '[]'
+critic_target:
+    value: |-
+        ContinuousCritic(
+          (features_extractor): CombinedExtractor(
+            (extractors): ModuleDict(
+              (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+              (desired_goal): Flatten(start_dim=1, end_dim=-1)
+              (observation): Flatten(start_dim=1, end_dim=-1)
+            )
+          )
+          (qf0): Sequential(
+            (0): Linear(in_features=155, out_features=256, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=256, out_features=256, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=256, out_features=256, bias=True)
+            (5): ReLU()
+            (6): Linear(in_features=256, out_features=1, bias=True)
+          )
+          (qf1): Sequential(
+            (0): Linear(in_features=155, out_features=256, bias=True)
+            (1): ReLU()
+            (2): Linear(in_features=256, out_features=256, bias=True)
+            (3): ReLU()
+            (4): Linear(in_features=256, out_features=256, bias=True)
+            (5): ReLU()
+            (6): Linear(in_features=256, out_features=1, bias=True)
+          )
+        )
+device:
+    value: cuda
+env:
+    value: <stable_baselines3.common.vec_env.vec_video_recorder.VecVideoRecorder object at 0x761096e9bd00>
+env_name:
+    value: JengaWall3-v3
+ep_info_buffer:
+    value: deque([], maxlen=100)
+ep_success_buffer:
+    value: deque([], maxlen=100)
+gamma:
+    value: 0.99
+gradient_steps:
+    value: -1
+learning_rate:
+    value: 0.001
+learning_starts:
+    value: 1000
+lr_schedule:
+    value: <function constant_fn.<locals>.func at 0x761096d629e0>
+n_envs:
+    value: 16
+num_timesteps:
+    value: 0
+observation_space:
+    value: 'Dict(''achieved_goal'': Box(-10.0, 10.0, (24,), float32), ''desired_goal'': Box(-10.0, 10.0, (24,), float32), ''observation'': Box(-10.0, 10.0, (103,), float32))'
+optimize_memory_usage:
+    value: "False"
+policy:
+    value: |-
+        MultiInputPolicy(
+          (actor): Actor(
+            (features_extractor): CombinedExtractor(
+              (extractors): ModuleDict(
+                (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+                (desired_goal): Flatten(start_dim=1, end_dim=-1)
+                (observation): Flatten(start_dim=1, end_dim=-1)
+              )
+            )
+            (mu): Sequential(
+              (0): Linear(in_features=151, out_features=256, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=256, out_features=256, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=256, out_features=256, bias=True)
+              (5): ReLU()
+              (6): Linear(in_features=256, out_features=4, bias=True)
+              (7): Tanh()
+            )
+          )
+          (actor_target): Actor(
+            (features_extractor): CombinedExtractor(
+              (extractors): ModuleDict(
+                (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+                (desired_goal): Flatten(start_dim=1, end_dim=-1)
+                (observation): Flatten(start_dim=1, end_dim=-1)
+              )
+            )
+            (mu): Sequential(
+              (0): Linear(in_features=151, out_features=256, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=256, out_features=256, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=256, out_features=256, bias=True)
+              (5): ReLU()
+              (6): Linear(in_features=256, out_features=4, bias=True)
+              (7): Tanh()
+            )
+          )
+          (critic): ContinuousCritic(
+            (features_extractor): CombinedExtractor(
+              (extractors): ModuleDict(
+                (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+                (desired_goal): Flatten(start_dim=1, end_dim=-1)
+                (observation): Flatten(start_dim=1, end_dim=-1)
+              )
+            )
+            (qf0): Sequential(
+              (0): Linear(in_features=155, out_features=256, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=256, out_features=256, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=256, out_features=256, bias=True)
+              (5): ReLU()
+              (6): Linear(in_features=256, out_features=1, bias=True)
+            )
+            (qf1): Sequential(
+              (0): Linear(in_features=155, out_features=256, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=256, out_features=256, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=256, out_features=256, bias=True)
+              (5): ReLU()
+              (6): Linear(in_features=256, out_features=1, bias=True)
+            )
+          )
+          (critic_target): ContinuousCritic(
+            (features_extractor): CombinedExtractor(
+              (extractors): ModuleDict(
+                (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+                (desired_goal): Flatten(start_dim=1, end_dim=-1)
+                (observation): Flatten(start_dim=1, end_dim=-1)
+              )
+            )
+            (qf0): Sequential(
+              (0): Linear(in_features=155, out_features=256, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=256, out_features=256, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=256, out_features=256, bias=True)
+              (5): ReLU()
+              (6): Linear(in_features=256, out_features=1, bias=True)
+            )
+            (qf1): Sequential(
+              (0): Linear(in_features=155, out_features=256, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=256, out_features=256, bias=True)
+              (3): ReLU()
+              (4): Linear(in_features=256, out_features=256, bias=True)
+              (5): ReLU()
+              (6): Linear(in_features=256, out_features=1, bias=True)
+            )
+          )
+        )
+policy_class:
+    value: <class 'stable_baselines3.td3.policies.MultiInputPolicy'>
+policy_delay:
+    value: 2
+policy_kwargs:
+    value: '{''net_arch'': [256, 256, 256]}'
+policy_type:
+    value: MultiInputPolicy
+replay_buffer:
+    value: <stable_baselines3.her.her_replay_buffer.HerReplayBuffer object at 0x761096d5dbd0>
+replay_buffer_class:
+    value: <class 'stable_baselines3.her.her_replay_buffer.HerReplayBuffer'>
+replay_buffer_kwargs:
+    value: '{''n_sampled_goal'': 4, ''goal_selection_strategy'': ''future''}'
+sde_sample_freq:
+    value: -1
+seed:
+    value: None
+start_time:
+    value: 1736944136362406145
+target_noise_clip:
+    value: 0.5
+target_policy_noise:
+    value: 0.2
+tau:
+    value: 0.005
+tensorboard_log:
+    value: runs/okxhyqj3
+total_timesteps:
+    value: 5e+07
+train_freq:
+    value: 'TrainFreq(frequency=1000, unit=<TrainFrequencyUnit.STEP: ''step''>)'
+use_sde:
+    value: "False"
+use_sde_at_warmup:
+    value: "False"
+verbose:
+    value: 1

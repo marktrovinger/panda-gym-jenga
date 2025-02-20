@@ -17,7 +17,7 @@ class QAgent():
         Q = np.zeros((state_space, action_space))
         return Q
     
-    def learn(self, env, timesteps, state, action, reward, state_):
+    def learn(self, env, timesteps):
         # TODO: move all training code to here, rename function learn
         episodes = timesteps / 10
         for episode in tqdm(range(episodes)):
@@ -33,7 +33,7 @@ class QAgent():
 
                 new_state, reward, terminated, _, info = env.step(action)
                 self.Q[state, action] = self.Q[state, action] + \
-                    self.lr * (reward + self.gamma*np.max(self.Q[state_, action]) 
+                    self.lr * (reward + self.gamma*np.max(self.Q[new_state, action]) 
                             - self.Q[state, action])
                 if terminated:
                     break
