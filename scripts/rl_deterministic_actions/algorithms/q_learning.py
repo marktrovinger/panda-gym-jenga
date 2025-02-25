@@ -1,5 +1,5 @@
 import numpy as np
-import tqdm
+from tqdm import tqdm
 
 class QAgent():
     def __init__(self, state_space, action_space, epsilon=1.0, epsilon_min=0.01, epsilon_decay=0.999, gamma=0.95, lr=0.08):
@@ -19,7 +19,7 @@ class QAgent():
     
     def learn(self, env, timesteps):
         # TODO: move all training code to here, rename function learn
-        episodes = timesteps / 10
+        episodes = timesteps // 10
         for episode in tqdm(range(episodes)):
             if self.epsilon > self.epsilon_min:
                 self.epsilon *= self.epsilon_decay

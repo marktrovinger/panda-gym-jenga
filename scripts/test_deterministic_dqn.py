@@ -15,7 +15,7 @@ def main():
         "JengaTower3-v3", render_mode="human"
     )
     env = DeterministicRLWrapper(env)
-    q = QAgent(env.observation_space.n, env.action_space.n)
+    q = QAgent(2^env.observation_space.n, env.action_space.n)
 
     q.learn(env, 1000)
 

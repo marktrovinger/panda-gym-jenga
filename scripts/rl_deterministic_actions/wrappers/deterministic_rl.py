@@ -21,6 +21,7 @@ class DeterministicRLWrapper(Wrapper):
         self.completed = np.zeros(self.task.num_components, dtype=np.int8)
         self._setup()
         self.is_action_completed = False
+        self.higher_z = False
 
     def _setup(self):
         observation = self.env.unwrapped._get_obs()
@@ -45,6 +46,16 @@ class DeterministicRLWrapper(Wrapper):
         int_rep = int(''.join(map(str, self.completed)), 2)
         return int_rep
     
+    def check_completed(self, target):
+        """Since the deterministic action for releasing the gripper doesn't check to see
+        if the object is actually there, and just assumes it is, this function exists.
+        """
+        # is the target object actually at target or just a random action?
+        placed = False
+        
+        if np.allclose(self.object_coords[target], self.objective_coords[target]):
+            placed = True
+        return placed
 
     def _robot_action(self, action):
         # move to object
@@ -75,7 +86,7 @@ class DeterministicRLWrapper(Wrapper):
                 goal_position = self.objective_coords[target]
                 if np.allclose(current_position, goal_position, self.env.task.distance_threshold):
                     self.is_action_completed = True
-                    self.completed[target] = 1
+                    #self.completed[target] = 1
                     self.higher_z = False
                     return current_position
                 else: 
@@ -90,7 +101,8 @@ class DeterministicRLWrapper(Wrapper):
             self.robot.block_gripper = False
             gripper_action = np.append(current_position, 1.0)
             self.is_action_completed = True
-            self.completed[target] = 1
+            if self.check_completed(target):
+                self.completed[target] = 1
             return gripper_action
         
     def reset(self, seed=42):
@@ -126,7 +138,7 @@ class DeterministicRLWrapper(Wrapper):
             # TODO: adjust for tuple structure of action space
             # TODO: adjust for change in observation space
             if self.is_action_completed and goal_action == 1:
-                observation = self.observation()
+                observation = self.observation(self.env.unwrapped._get_obs())
                 reward = reward * i
                 terminated = True
                 truncated = False
@@ -137,7 +149,7 @@ class DeterministicRLWrapper(Wrapper):
                 self.robot.reset()
                 return observation, reward, terminated, truncated, info
             elif self.is_action_completed and goal_action != 1:
-                observation = self.observation()
+                observation = self.observation(self.env.unwrapped._get_obs())
                 reward = reward * i
                 terminated = True
                 truncated = False
