@@ -319,7 +319,8 @@ class JengaTower3Env(RobotTaskEnv):
             render_yaw = 45, 
             render_pitch = -30, 
             render_roll = 0,
-            object_size: str = "large"
+            object_size: str = "large",
+            deterministic=False
         ) -> None:
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
         self.robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
