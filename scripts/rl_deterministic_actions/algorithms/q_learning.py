@@ -18,7 +18,6 @@ class QAgent():
         return Q
     
     def learn(self, env, timesteps):
-        # TODO: move all training code to here, rename function learn
         episodes = timesteps // 10
         for episode in tqdm(range(episodes)):
             if self.epsilon > self.epsilon_min:

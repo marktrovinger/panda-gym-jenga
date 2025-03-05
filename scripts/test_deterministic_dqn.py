@@ -12,7 +12,7 @@ from rl_deterministic_actions.algorithms.q_learning import QAgent
 
 def main():
     env = gym.make(
-        "JengaTower3-v3", render_mode="human", deterministic=True
+        "JengaSimplePickAndPlace-v3", render_mode="human", deterministic=True
     )
     env = DeterministicRLWrapper(env)
     #for i in range(env.action_space.n):

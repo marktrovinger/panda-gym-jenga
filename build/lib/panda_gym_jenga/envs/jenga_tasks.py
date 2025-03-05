@@ -6,7 +6,7 @@ from panda_gym.envs.core import RobotTaskEnv
 from panda_gym.envs.robots.panda import Panda
 from panda_gym_jenga.envs.tasks.jengapickandplace import JengaPickAndPlace
 from panda_gym_jenga.envs.tasks.stack3 import JengaStack3
-from panda_gym_jenga.envs.tasks.simplejengapickandplace import JengaSimplePickAndPlace 
+from panda_gym_jenga.envs.tasks.jengasimplepickandplace import JengaSimplePickAndPlace 
 
 
 class JengaPickAndPlaceEnv(RobotTaskEnv):

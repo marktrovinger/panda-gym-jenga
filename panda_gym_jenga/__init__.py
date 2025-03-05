@@ -7,7 +7,7 @@ with open(os.path.join(os.path.dirname(__file__), "version.txt"), "r") as file_h
 
 ENV_IDS = []
 
-for task in ["Stack3", "PickAndPlace", "PickAndPlaceDeterministic" "SimplePickAndPlace", "SimplePickAndPlaceDeterministic", "Tower", "TowerDeterministic", "Tower3Deterministic", "Tower3", "Wall3", "Wall3Deterministic"]:
+for task in ["Stack3", "PickAndPlace", "PickAndPlaceDeterministic", "SimplePickAndPlace", "SimplePickAndPlaceDeterministic", "Tower", "TowerDeterministic", "Tower3Deterministic", "Tower3", "Wall3", "Wall3Deterministic"]:
     for reward_type in ["sparse", "dense"]:
         for control_type in ["ee", "joints"]:
             reward_suffix = "Dense" if reward_type == "dense" else ""

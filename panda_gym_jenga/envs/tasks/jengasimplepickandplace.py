@@ -16,7 +16,8 @@ class JengaSimplePickAndPlace(Task):
         distance_threshold=0.1,
         goal_xy_range=0.3,
         obj_xy_range=0.3,
-        object_size="normal"
+        object_size="normal",
+        deterministic = False
     ) -> None:
         super().__init__(sim)
         self.reward_type = reward_type
@@ -29,6 +30,8 @@ class JengaSimplePickAndPlace(Task):
         else:
             pass
         #self.np_random = Task.
+        self.deterministic = deterministic
+        self.num_components = 1
         self.goal_range_low = np.array([-goal_xy_range / 2, -goal_xy_range / 2, 0])
         self.goal_range_high = np.array([goal_xy_range / 2, goal_xy_range / 2, 0])
         self.obj_range_low = np.array([-obj_xy_range / 2, -obj_xy_range / 2, 0])
@@ -85,14 +88,16 @@ class JengaSimplePickAndPlace(Task):
     def _sample_goal(self) -> np.ndarray:
         goal1 = np.array([0.0, 0.0, self.extents[2] / 2])  # z offset for the cube center
         noise = self.np_random.uniform(self.goal_range_low, self.goal_range_high)
-        goal1 += noise
+        if not self.deterministic:
+            goal1 += noise
         return goal1
 
     def _sample_objects(self) -> Tuple[np.ndarray, np.ndarray]:
         # while True:  # make sure that cubes are distant enough
         object1_position = np.array([0.0, 0.0, self.extents[2] / 2])
         noise1 = self.np_random.uniform(self.obj_range_low, self.obj_range_high)
-        object1_position += noise1
+        if not self.deterministic:
+            object1_position += noise1
         # if distance(object1_position, object2_position) > 0.1:
         return object1_position
 

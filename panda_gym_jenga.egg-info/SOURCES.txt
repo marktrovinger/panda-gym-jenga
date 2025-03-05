@@ -16,7 +16,7 @@ panda_gym_jenga/envs/tasks/jenga_tower.py
 panda_gym_jenga/envs/tasks/jenga_tower3.py
 panda_gym_jenga/envs/tasks/jenga_wall.py
 panda_gym_jenga/envs/tasks/jengapickandplace.py
-panda_gym_jenga/envs/tasks/simplejengapickandplace.py
+panda_gym_jenga/envs/tasks/jengasimplepickandplace.py
 panda_gym_jenga/envs/tasks/stack3.py
 panda_gym_jenga/envs/tasks/stack_jenga.py
 panda_gym_jenga/envs/tasks/test_stack3.py

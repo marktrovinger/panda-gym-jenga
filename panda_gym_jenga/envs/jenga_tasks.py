@@ -8,7 +8,7 @@ from panda_gym.envs.robots.panda import Panda
 from panda_gym_jenga.envs.robot.kinova import Kinova
 from panda_gym_jenga.envs.tasks.jengapickandplace import JengaPickAndPlace
 from panda_gym_jenga.envs.tasks.stack3 import JengaStack3
-from panda_gym_jenga.envs.tasks.simplejengapickandplace import JengaSimplePickAndPlace 
+from panda_gym_jenga.envs.tasks.jengasimplepickandplace import JengaSimplePickAndPlace 
 from panda_gym_jenga.envs.tasks.jenga_tower import JengaTower
 from panda_gym_jenga.envs.tasks.jenga_tower3 import JengaTower3
 from panda_gym_jenga.envs.tasks.jenga_wall import JengaWall3
@@ -808,11 +808,12 @@ class JengaSimplePickAndPlaceEnv(RobotTaskEnv):
             render_yaw = 45,                                                                                        
             render_pitch = -30,                                                                                     
             render_roll = 0,                                                                                        
-            object_size: str = "large"                                                                              
+            object_size: str = "large",
+            deterministic = False,                                                                      
         ) -> None:                                                                                                  
         sim = PyBullet(render_mode=render_mode, renderer=renderer)                                                  
         robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
-        task = JengaSimplePickAndPlace(sim, reward_type=reward_type, object_size=object_size)                             
+        task = JengaSimplePickAndPlace(sim, reward_type=reward_type, object_size=object_size, deterministic = deterministic)                             
         super().__init__(                                                                                           
             robot,                                                                                                  
             task,                                                                                                   
