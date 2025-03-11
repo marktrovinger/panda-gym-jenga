@@ -24,10 +24,10 @@ class QAgent():
         for episode in tqdm(range(episodes)):
             if self.epsilon > self.epsilon_min:
                 self.epsilon *= self.epsilon_decay
-            
             state, info = env.reset()
-            if info["is_success"] == True:
-                return
+            #if info["is_success"] == True:
+            #    #successes += 1
+            #    return
             step = 0
             terminated = False
             rewards = 0
@@ -41,15 +41,17 @@ class QAgent():
                     rewards += reward
                 else:
                     break
-                print(reward)
+                #print(reward)
                 self.Q[state, action] = self.Q[state, action] + \
                     self.lr * (reward + self.gamma*np.max(self.Q[new_state, action]) 
                             - self.Q[state, action])
                 rewards_ep.append(rewards)
-                if terminated or info["is_success"] == True:
+                if info["is_success"] == True:
+                    successes += 1
                     break
                 state = new_state
         print(sum(rewards_ep)/episodes)
+        print(successes/episodes)
 
         
 
