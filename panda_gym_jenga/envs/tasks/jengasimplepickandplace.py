@@ -54,7 +54,7 @@ class JengaSimplePickAndPlace(Task):
             half_extents=self.extents / 2,
             mass=0.0,
             ghost=True,
-            position=np.array([0.0, self.extents[0] / 2, self.extents[2] / 2]),
+            position=np.array([0.0, 0.1, 0.0]),
             rgba_color=np.array([0.1, 0.1, 0.9, 0.3]),
         )
     def get_obs(self) -> np.ndarray:
@@ -86,7 +86,7 @@ class JengaSimplePickAndPlace(Task):
         
 
     def _sample_goal(self) -> np.ndarray:
-        goal1 = np.array([0.0, 0.0, self.extents[2] / 2])  # z offset for the cube center
+        goal1 = np.array([0.0, 0.1, self.extents[2] / 2])  # z offset for the cube center
         noise = self.np_random.uniform(self.goal_range_low, self.goal_range_high)
         if not self.deterministic:
             goal1 += noise

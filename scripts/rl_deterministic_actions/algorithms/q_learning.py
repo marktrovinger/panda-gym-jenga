@@ -19,24 +19,37 @@ class QAgent():
     
     def learn(self, env, timesteps):
         episodes = timesteps // 10
+        rewards_ep = []
+        successes = 0
         for episode in tqdm(range(episodes)):
             if self.epsilon > self.epsilon_min:
                 self.epsilon *= self.epsilon_decay
             
             state, info = env.reset()
+            if info["is_success"] == True:
+                return
             step = 0
             terminated = False
-            
-            for step in range(timesteps):
+            rewards = 0
+            for step in range(timesteps):   
+                
                 action = self.action(state)
-
-                new_state, reward, terminated, _, info = env.step(action)
+                
+                env_return = env.step(action)
+                if env_return is not None: 
+                    new_state, reward, terminated, _, info = env_return
+                    rewards += reward
+                else:
+                    break
+                print(reward)
                 self.Q[state, action] = self.Q[state, action] + \
                     self.lr * (reward + self.gamma*np.max(self.Q[new_state, action]) 
                             - self.Q[state, action])
-                if terminated:
+                rewards_ep.append(rewards)
+                if terminated or info["is_success"] == True:
                     break
                 state = new_state
+        print(sum(rewards_ep)/episodes)
 
         
 

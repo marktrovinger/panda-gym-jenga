@@ -65,6 +65,10 @@ class DeterministicRLWrapper(Wrapper):
 
         # move to the object
         if action == 0:
+            # we have reached a state that the robot can't
+            # handle
+            if self.robot.block_gripper:
+                return -1
             goal_position = self.object_coords[target]
             #goal_position = observation["achieved_goal"][0:3]
             if np.allclose(goal_position, current_position, 0.1):
@@ -139,6 +143,33 @@ class DeterministicRLWrapper(Wrapper):
             # TODO: adjust for change in observation space
             if self.is_action_completed and goal_action == 1:
                 observation = self.observation(self.env.unwrapped._get_obs())
+                terminated = False
+                reward = reward * i
+                truncated = True
+                info = {"is_success": terminated,
+                        "time_taken": i
+                    }
+                self.is_action_completed = False
+                #self.robot.reset()
+                return observation, reward, terminated, truncated, info
+            elif self.is_action_completed and goal_action != 1:
+                observation = self.observation(self.env.unwrapped._get_obs())
+                reward = reward * i
+                terminated = False
+                if all(self.completed):
+                    terminated = True
+                truncated = False
+                info = {"is_success": terminated,
+                        "time_taken": i
+                    }
+                self.is_action_completed = False
+                #self.robot.reset()
+                return observation, reward, terminated, truncated, info
+            # since we have an issue with the robot crashing when it tries to
+            # move to the object, we return a termination
+            action = self._robot_action([goal_action, goal_object])
+            if not isinstance(action, np.ndarray):
+                observation = self.observation(self.env.unwrapped._get_obs())
                 reward = reward * i
                 terminated = True
                 truncated = False
@@ -148,18 +179,6 @@ class DeterministicRLWrapper(Wrapper):
                 self.is_action_completed = False
                 self.robot.reset()
                 return observation, reward, terminated, truncated, info
-            elif self.is_action_completed and goal_action != 1:
-                observation = self.observation(self.env.unwrapped._get_obs())
-                reward = reward * i
-                terminated = True
-                truncated = False
-                info = {"is_success": terminated,
-                        "time_taken": i
-                    }
-                self.is_action_completed = False
-                #self.robot.reset()
-                return observation, reward, terminated, truncated, info
-            action = self._robot_action([goal_action, goal_object])
             #dont forget to add the gripper
             if goal_action < 2:
                 gripper = 0.0 if self.robot.get_fingers_width() else 1.0
