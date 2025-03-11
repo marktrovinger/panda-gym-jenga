@@ -45,11 +45,12 @@ class QAgent():
                 self.Q[state, action] = self.Q[state, action] + \
                     self.lr * (reward + self.gamma*np.max(self.Q[new_state, action]) 
                             - self.Q[state, action])
-                rewards_ep.append(rewards)
+                
                 if info["is_success"] == True:
                     successes += 1
                     break
                 state = new_state
+            rewards_ep.append(rewards)
         print(sum(rewards_ep)/episodes)
         print(successes/episodes)
 
