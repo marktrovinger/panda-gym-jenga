@@ -137,7 +137,7 @@ class DeterministicRLWrapper(Wrapper):
         
         goal_action = action[0]
         goal_object = action[1]
-        for i in range(100):
+        for i in range(1000):
             # check to see if we are done with the overall objective
             # TODO: adjust for tuple structure of action space
             # TODO: adjust for change in observation space

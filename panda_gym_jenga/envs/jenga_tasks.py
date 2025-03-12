@@ -47,11 +47,12 @@ class JengaWall3Env(RobotTaskEnv):
             render_yaw = 45, 
             render_pitch = -30, 
             render_roll = 0,
-            object_size: str = "large"
+            object_size: str = "large",
+            deterministic = False
         ) -> None:
         sim = PyBullet(render_mode=render_mode, renderer=renderer)
         self.robot = Panda(sim, block_gripper=False, base_position=np.array([-0.6, 0.0, 0.0]), control_type=control_type)
-        task = JengaWall3(sim, reward_type=reward_type, object_size=object_size)
+        task = JengaWall3(sim, reward_type=reward_type, object_size=object_size, deterministic=deterministic)
         super().__init__(
             self.robot, 
             task, 
