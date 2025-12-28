@@ -2,11 +2,17 @@ import panda_gym
 import gymnasium as gym
 import panda_gym_jenga
 import time
-
+from gymnasium.wrappers import RecordVideo
 
 
 def main():
-    env = gym.make("JengaWall3Deterministic-v3", render_mode = "human", deterministic=True)
+    env = gym.make("JengaWall3Deterministic-v3", render_mode = "rgb_array", deterministic=True)
+    env = RecordVideo(
+            env,
+            video_folder="tower-deterministic",
+            name_prefix="pres",
+            episode_trigger=lambda x: True
+        )
     #env = gym.make("JengaTower3Deterministic-v3", render_mode = "human", deterministic=True)
     #env = RecordVideo(env, video_folder="deterministic_testing", name_prefix="testing", episode_trigger=lambda x: True)
     
@@ -37,7 +43,7 @@ def main():
 
     print(f"Moved 4 objects in {total_steps} steps.")
 
-    i = input("Press enter to end simulation.")
+    #i = input("Press enter to end simulation.")
     env.close()
 
 if __name__ == "__main__":
